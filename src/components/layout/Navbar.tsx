@@ -79,6 +79,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [conciergeOpen, setConciergeOpen] = useState(false);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
