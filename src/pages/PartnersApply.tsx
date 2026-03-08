@@ -2,6 +2,11 @@ import { useState, useRef } from "react";
 import { Container } from "@/components/layout/Container";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Button } from "@/components/ui/button";
+import { Check, Upload, Globe, BadgeCheck, Users, TrendingUp, ArrowRight } from "lucide-react";
+import { partnerBenefits, currentPartners } from "@/data/mockData";
+import { motion } from "framer-motion";
+import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
+import { Button } from "@/components/ui/button";
 import { Check, Upload, Globe, BadgeCheck, Users, TrendingUp } from "lucide-react";
 import { partnerBenefits, currentPartners } from "@/data/mockData";
 import { motion } from "framer-motion";
@@ -55,38 +60,7 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 }
 
 const PartnersApply = () => {
-  const [submitted, setSubmitted] = useState(false);
-
-  if (submitted) {
-    return (
-      <div className="flex min-h-[80vh] items-center justify-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", stiffness: 200 }}
-        >
-          <Glass3DCard className="p-12 max-w-md text-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", delay: 0.2 }}
-              className="mx-auto flex h-16 w-16 items-center justify-center rounded-full"
-              style={{ background: "linear-gradient(135deg, hsl(174 65% 28% / 0.2), hsl(174 65% 28% / 0.05))" }}
-            >
-              <Check className="h-8 w-8 text-primary" />
-            </motion.div>
-            <h1 className="mt-6 font-serif text-3xl font-bold">Application Submitted!</h1>
-            <p className="mt-4 text-muted-foreground">
-              Thank you for applying to join the MedXTrawell provider network. Our partnerships team will review your application and contact you within 5 business days.
-            </p>
-            <Button className="mt-8" style={{ background: "linear-gradient(135deg, hsl(38 55% 52%), hsl(38 55% 42%))", color: "white" }} asChild>
-              <a href="/">Return to Home</a>
-            </Button>
-          </Glass3DCard>
-        </motion.div>
-      </div>
-    );
-  }
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div>
