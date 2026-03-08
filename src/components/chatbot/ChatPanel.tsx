@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { X, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { X, Send, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
   id: string;
@@ -38,26 +38,37 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
   ]);
   const [input, setInput] = useState("");
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const [typing, setTyping] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, typing]);
 
   const handleSend = (text: string) => {
     const userMsg: Message = { id: Date.now().toString(), role: "user", text };
     setMessages((prev) => [...prev, userMsg]);
     setShowQuickReplies(false);
+    setInput("");
+    setTyping(true);
+
     const responses = botResponses[text] || ["Thanks for your message! A care coordinator will get back to you shortly."];
     responses.forEach((r, i) => {
       setTimeout(() => {
+        if (i === responses.length - 1) setTyping(false);
         setMessages((prev) => [...prev, { id: `${Date.now()}-${i}`, role: "bot", text: r }]);
       }, (i + 1) * 800);
     });
-    setInput("");
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      initial={{ opacity: 0, y: 16, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 20, scale: 0.95 }}
-      className="fixed bottom-20 right-4 z-50 flex h-[480px] w-[360px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:bottom-6 sm:right-6 sm:w-[380px]"
+      exit={{ opacity: 0, y: 16, scale: 0.96 }}
+      transition={{ duration: 0.2 }}
+      className="fixed bottom-20 right-4 z-50 flex h-[480px] w-[360px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-accent/20 bg-card shadow-2xl sm:bottom-6 sm:right-6 sm:w-[380px]"
+      style={{ boxShadow: "0 0 30px rgba(34,211,238,0.1), 0 20px 40px rgba(0,0,0,0.15)" }}
     >
       <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
         <div className="flex items-center gap-3">
@@ -69,39 +80,72 @@ export function ChatPanel({ onClose }: ChatPanelProps) {
             <p className="text-xs opacity-70">Usually replies instantly</p>
           </div>
         </div>
-        <button onClick={onClose} className="rounded-full p-1 hover:bg-primary-foreground/10">
+        <button onClick={onClose} className="rounded-full p-1 hover:bg-primary-foreground/10 transition-colors" aria-label="Close chat">
           <X className="h-5 w-5" />
         </button>
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {messages.map((msg) => (
-          <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+        {messages.map((msg, i) => (
+          <motion.div
+            key={msg.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.15 }}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+          >
             <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm ${
-              msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
+              msg.role === "user"
+                ? "bg-primary text-primary-foreground rounded-br-sm"
+                : "bg-muted text-foreground rounded-bl-sm"
             }`}>{msg.text}</div>
-          </div>
+          </motion.div>
         ))}
+        {typing && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex justify-start"
+          >
+            <div className="flex items-center gap-2 rounded-2xl rounded-bl-sm bg-muted px-4 py-3 text-sm text-muted-foreground">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              Assistant is typing...
+            </div>
+          </motion.div>
+        )}
         {showQuickReplies && (
           <div className="flex flex-wrap gap-2 pt-2">
             {quickReplies.map((qr) => (
-              <button key={qr} onClick={() => handleSend(qr)}
-                className="rounded-full border border-accent/30 bg-accent/5 px-3 py-1.5 text-xs font-medium text-accent transition-colors hover:bg-accent/10">
+              <motion.button
+                key={qr}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => handleSend(qr)}
+                className="rounded-full border border-accent/30 bg-accent/5 px-3 py-1.5 text-xs font-medium text-accent-foreground transition-colors hover:bg-accent/10"
+              >
                 {qr}
-              </button>
+              </motion.button>
             ))}
           </div>
         )}
+        <div ref={bottomRef} />
       </div>
       <div className="border-t border-border p-3">
         <div className="flex gap-2">
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && input.trim() && handleSend(input.trim())}
             placeholder="Type a message..."
-            className="flex-1 rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
-          <button onClick={() => input.trim() && handleSend(input.trim())}
-            className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:bg-accent/90">
+            className="flex-1 rounded-xl border border-input bg-background px-3 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            aria-label="Chat message input"
+          />
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => input.trim() && handleSend(input.trim())}
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+            aria-label="Send message"
+          >
             <Send className="h-4 w-4" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>
