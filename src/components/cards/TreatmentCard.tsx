@@ -12,33 +12,30 @@ export function TreatmentCard({ treatment }: TreatmentCardProps) {
   return (
     <Link
       to={`/treatments/${treatment.slug}`}
-      className="group block overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="relative h-48 overflow-hidden">
-        <img src={treatment.image} alt={treatment.name}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+        <img
+          src={treatment.image}
+          alt={treatment.name}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+        />
         {treatment.accredited && (
-          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-accent/90 px-2.5 py-1 text-xs font-medium text-accent-foreground">
+          <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-accent/90 px-2.5 py-1 text-xs font-medium text-accent-foreground shadow-sm backdrop-blur-sm">
             <BadgeCheck className="h-3 w-3" /> Accredited
           </div>
         )}
+        <div className="absolute bottom-3 right-3 rounded-full bg-card/90 px-3 py-1 text-sm font-bold text-primary shadow-sm backdrop-blur-sm">
+          {formatPrice(treatment.price)}
+        </div>
       </div>
-      <div className="p-5">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="font-serif text-lg font-semibold text-card-foreground">{treatment.name}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{treatment.provider}</p>
-          </div>
-          <div className="flex items-center gap-1 text-sm font-medium text-accent">
-            <Star className="h-4 w-4 fill-current" />{treatment.rating}
-          </div>
-        </div>
-        <div className="mt-3 flex items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="h-3.5 w-3.5" />{treatment.city}, {treatment.country}
-        </div>
-        <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-          <span className="text-sm text-muted-foreground">From</span>
-          <span className="font-serif text-xl font-bold text-primary">{formatPrice(treatment.price)}</span>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-serif text-lg font-semibold leading-tight group-hover:text-primary transition-colors">{treatment.name}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{treatment.provider}</p>
+        <div className="mt-auto pt-4 flex items-center justify-between text-xs text-muted-foreground">
+          <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{treatment.city}, {treatment.country}</span>
+          <span className="flex items-center gap-1 font-medium"><Star className="h-3 w-3 fill-accent text-accent" />{treatment.rating}</span>
         </div>
       </div>
     </Link>
