@@ -6,10 +6,6 @@ import { Check, Upload, Globe, BadgeCheck, Users, TrendingUp, ArrowRight } from 
 import { partnerBenefits, currentPartners } from "@/data/mockData";
 import { motion } from "framer-motion";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
-import { Button } from "@/components/ui/button";
-import { Check, Upload, Globe, BadgeCheck, Users, TrendingUp } from "lucide-react";
-import { partnerBenefits, currentPartners } from "@/data/mockData";
-import { motion } from "framer-motion";
 
 const benefitIcons: Record<string, any> = { globe: Globe, badge: BadgeCheck, users: Users, trending: TrendingUp };
 
