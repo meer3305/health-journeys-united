@@ -135,121 +135,39 @@ const PartnersApply = () => {
         </Container>
       </section>
 
-      {/* Application form */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
+      {/* Apply CTA */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <Container className="relative">
-          <div className="grid gap-12 lg:grid-cols-5">
-            {/* Info side */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2"
-            >
-              <h2 className="font-serif text-3xl font-bold">Apply to Join</h2>
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                Complete the form and our partnerships team will review your application. We accept hospitals, clinics, dental practices, fertility centres, and wellness providers worldwide.
-              </p>
-              <div className="mt-8 space-y-4">
-                {["Review within 5 business days", "No listing fees for approved partners", "Dedicated account manager", "Access to patient pipeline immediately"].map((item, i) => (
-                  <motion.div
-                    key={item}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ background: "linear-gradient(135deg, hsl(174 65% 28% / 0.15), hsl(174 65% 28% / 0.05))" }}>
-                      <Check className="h-3.5 w-3.5 text-primary" />
-                    </div>
-                    <span className="text-sm text-muted-foreground">{item}</span>
-                  </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="font-serif text-3xl font-bold sm:text-4xl">Ready to Join?</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+              Complete the application and our partnerships team will review it within 3 business days. No listing fees for approved partners.
+            </p>
+            <div className="mt-8 space-y-4">
+              <div className="flex flex-wrap justify-center gap-3">
+                {["Review within 3 business days", "No listing fees", "Dedicated account manager", "Instant patient pipeline access"].map((item) => (
+                  <span key={item} className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                    <Check className="h-3.5 w-3.5" /> {item}
+                  </span>
                 ))}
               </div>
-            </motion.div>
-
-            {/* Form side */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-3"
-            >
-              <Glass3DCard className="p-8">
-                <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium">Organisation Name</label>
-                    <input type="text" required className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Istanbul Health Centre" />
-                  </div>
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1.5 block text-sm font-medium">Country</label>
-                      <input type="text" required className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Turkey" />
-                    </div>
-                    <div>
-                      <label className="mb-1.5 block text-sm font-medium">Type</label>
-                      <select className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all">
-                        <option>Hospital</option><option>Clinic</option><option>Wellness Centre</option><option>Dental Practice</option><option>Fertility Centre</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium">Website</label>
-                    <input type="url" className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="https://www.example.com" />
-                  </div>
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1.5 block text-sm font-medium">Contact Name</label>
-                      <input type="text" required className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Dr. Ali Yilmaz" />
-                    </div>
-                    <div>
-                      <label className="mb-1.5 block text-sm font-medium">Email</label>
-                      <input type="email" required className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="ali@hospital.com" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium">Phone</label>
-                    <input type="tel" className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="+90 555 123 4567" />
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium">Specialties</label>
-                    <input type="text" className="w-full rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" placeholder="Orthopaedics, Dental, Cosmetic..." />
-                  </div>
-                  <div>
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" className="rounded accent-primary" />
-                      JCI or equivalent accreditation
-                    </label>
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium">Documents (optional)</label>
-                    <motion.div
-                      whileHover={{ scale: 1.01, borderColor: "rgba(13, 110, 110, 0.3)" }}
-                      className="flex items-center justify-center rounded-xl border-2 border-dashed border-white/20 px-6 py-8 text-center transition-all cursor-pointer"
-                      style={{ background: "rgba(255,255,255,0.03)" }}
-                    >
-                      <div>
-                        <Upload className="mx-auto h-6 w-6 text-muted-foreground" />
-                        <p className="mt-2 text-xs text-muted-foreground">Upload accreditation certificates • PDF, PNG, JPG up to 10MB</p>
-                      </div>
-                    </motion.div>
-                  </div>
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full border border-white/20 shadow-lg"
-                      style={{ background: "linear-gradient(135deg, hsl(38 55% 52%), hsl(38 55% 42%))", color: "white" }}
-                    >
-                      Submit Application
-                    </Button>
-                  </motion.div>
-                </form>
-              </Glass3DCard>
-            </motion.div>
-          </div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
+                <Button
+                  size="lg"
+                  className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-shadow hover:shadow-[0_0_20px_rgba(34,211,238,0.35)]"
+                  onClick={() => setModalOpen(true)}
+                >
+                  Apply Now <ArrowRight className="h-4 w-4" />
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
         </Container>
       </section>
     </div>
