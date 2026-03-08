@@ -3,9 +3,11 @@ import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/sections/SectionHeader";
 import { ProviderCard } from "@/components/cards/ProviderCard";
 import { TreatmentCard } from "@/components/cards/TreatmentCard";
+import { Destination3DCard } from "@/components/cards/Destination3DCard";
+import { Carousel3D } from "@/components/Carousel3D";
 import { destinations, treatments } from "@/data/mockData";
-import { Check, MapPin, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { Check, MapPin, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -19,18 +21,11 @@ const sections = [
 
 const DestinationPage = () => {
   const { country: slug } = useParams();
-  const destination = destinations.find((d) => d.slug === slug) || destinations[0];
+  const destIndex = destinations.findIndex((d) => d.slug === slug);
+  const destination = destIndex >= 0 ? destinations[destIndex] : destinations[0];
   const [activeSection, setActiveSection] = useState("overview");
   const countryTreatments = treatments.filter((t) => t.country === destination.country);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (dir: "left" | "right") => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: dir === "left" ? -200 : 200, behavior: "smooth" });
-    }
-  };
-
-  // Reset section when destination changes
   useEffect(() => { setActiveSection("overview"); }, [slug]);
 
   return (
@@ -58,34 +53,17 @@ const DestinationPage = () => {
         </Container>
       </section>
 
-      {/* Destination switcher — horizontal slider */}
-      <div className="sticky top-16 z-30 border-b border-border bg-background/98 backdrop-blur-xl">
+      {/* 3D Destination Carousel Switcher */}
+      <section className="py-12 bg-muted/30">
         <Container>
-          <div className="flex items-center gap-2 py-3">
-            <button onClick={() => scroll("left")} className="shrink-0 rounded-full p-1.5 text-muted-foreground hover:bg-muted transition-colors">
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <div ref={scrollRef} className="flex flex-1 items-center gap-2 overflow-x-auto scroll-smooth no-scrollbar">
-              {destinations.map((d) => (
-                <Link
-                  key={d.slug}
-                  to={`/destinations/${d.slug}`}
-                  className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
-                    d.slug === slug
-                      ? "bg-primary text-primary-foreground shadow-md scale-105"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:shadow-sm"
-                  }`}
-                >
-                  <span className="text-base">{d.flag}</span> {d.name}
-                </Link>
-              ))}
-            </div>
-            <button onClick={() => scroll("right")} className="shrink-0 rounded-full p-1.5 text-muted-foreground hover:bg-muted transition-colors">
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
+          <h2 className="mb-8 text-center font-serif text-2xl font-bold">Explore Destinations</h2>
+          <Carousel3D>
+            {destinations.map((d) => (
+              <Destination3DCard key={d.id} destination={d} />
+            ))}
+          </Carousel3D>
         </Container>
-      </div>
+      </section>
 
       {/* Section tabs */}
       <div className="border-b border-border bg-card">
@@ -174,7 +152,7 @@ const DestinationPage = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="py-12 text-center text-muted-foreground">No providers listed yet for {destination.name}. Check back soon!</p>
+                    <p className="py-12 text-center text-muted-foreground">No providers listed yet for {destination.name}.</p>
                   )}
                 </div>
               )}
@@ -222,8 +200,8 @@ const DestinationPage = () => {
                   <div className="flex h-96 items-center justify-center rounded-2xl bg-muted border border-border overflow-hidden">
                     <div className="text-center">
                       <MapPin className="mx-auto h-12 w-12 text-muted-foreground/30" />
-                      <p className="mt-3 text-muted-foreground">Interactive map placeholder — {destination.name}</p>
-                      <p className="text-sm text-muted-foreground">{destination.providerCount} providers across the country</p>
+                      <p className="mt-3 text-muted-foreground">Interactive map — {destination.name}</p>
+                      <p className="text-sm text-muted-foreground">{destination.providerCount} providers</p>
                     </div>
                   </div>
                 </div>
