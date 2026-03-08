@@ -60,6 +60,7 @@ const PartnersApply = () => {
 
   return (
     <div>
+      <PartnerApplicationModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <HeroSection
         title="Join Our Provider Network"
         subtitle="Partner with MedXTrawell to reach thousands of international patients seeking world-class healthcare."
