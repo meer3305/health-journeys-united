@@ -41,7 +41,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Suspense fallback={<PageLoader />}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/" element={<MainLayout><Index /></MainLayout>} />
           <Route path="/treatments" element={<MainLayout><Treatments /></MainLayout>} />
           <Route path="/treatments/:slug" element={<MainLayout><TreatmentDetail /></MainLayout>} />
