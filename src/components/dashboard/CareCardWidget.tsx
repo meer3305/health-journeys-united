@@ -6,7 +6,7 @@ export function CareCardWidget() {
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-wider opacity-70">Virtual Care Card</p>
-          <h3 className="mt-1 font-serif text-xl font-bold">MediVoyage Card</h3>
+          <h3 className="mt-1 font-serif text-xl font-bold">MedXTrawell Card</h3>
         </div>
         <CreditCard className="h-8 w-8 opacity-50" />
       </div>
