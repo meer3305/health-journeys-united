@@ -99,7 +99,7 @@ const Treatments = () => {
             </div>
           </Container>
         </section>
-        <MatchMeModal type="treatment" open={matchOpen} onClose={() => { setMatchOpen(false); if (mode === "match") setMode("choose"); }} onResults={handleMatchResults} />
+        <MatchMeModal type="treatment" open={matchOpen} onClose={() => { setMatchOpen(false); setMode("choose"); }} onResults={handleMatchResults} />
       </div>
     );
   }

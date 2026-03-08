@@ -102,7 +102,7 @@ const Wellness = () => {
             </div>
           </Container>
         </section>
-        <MatchMeModal type="wellness" open={matchOpen} onClose={() => { setMatchOpen(false); if (mode === "match") setMode("choose"); }} onResults={handleMatchResults} />
+        <MatchMeModal type="wellness" open={matchOpen} onClose={() => { setMatchOpen(false); setMode("choose"); }} onResults={handleMatchResults} />
       </div>
     );
   }
