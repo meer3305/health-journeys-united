@@ -13,13 +13,14 @@ export function TreatmentCard({ treatment }: TreatmentCardProps) {
   return (
     <Link
       to={`/treatments/${treatment.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl glass-card transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
+      className="group flex flex-col overflow-hidden rounded-2xl glass-card transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10"
+      style={{ willChange: "transform, opacity" }}
     >
       <div className="relative h-48 overflow-hidden">
         <img
           src={treatment.image}
           alt={treatment.name}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />

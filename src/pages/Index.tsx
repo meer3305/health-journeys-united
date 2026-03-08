@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/sections/SectionHeader";
 import { TreatmentCard } from "@/components/cards/TreatmentCard";
 import { WellnessCard } from "@/components/cards/WellnessCard";
 import { DestinationCard } from "@/components/cards/DestinationCard";
+import { Carousel3D } from "@/components/Carousel3D";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
 import { SavingsComparison } from "@/components/sections/SavingsComparison";
@@ -13,6 +14,7 @@ import { TrustBadges } from "@/components/sections/TrustBadges";
 import { ComparisonTool } from "@/components/sections/ComparisonTool";
 import { CostCalculator } from "@/components/sections/CostCalculator";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
+import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { treatments, wellnessPrograms, destinations, reviews, trustStats, howItWorks, virtualCardFeatures } from "@/data/mockData";
@@ -24,8 +26,8 @@ const stepIcons = [ClipboardList, Search, Plane];
 const trustIcons = [BadgeCheck, Globe, Users, Star];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.35, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } }),
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } }),
 };
 
 function Glass3DCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -71,10 +73,12 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 
 const Index = () => {
   const [findOpen, setFindOpen] = useState(false);
+  const [partnerOpen, setPartnerOpen] = useState(false);
 
   return (
     <div>
       <FindMyTreatmentModal open={findOpen} onClose={() => setFindOpen(false)} />
+      <PartnerApplicationModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
 
       {/* Hero */}
       <section className="relative flex items-center overflow-hidden min-h-[92vh]">
@@ -390,13 +394,11 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
         <Container className="relative">
           <SectionHeader title="Popular Destinations" subtitle="World-class care in stunning locations" />
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {destinations.slice(0, 8).map((d, i) => (
-              <motion.div key={d.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-                <DestinationCard destination={d} />
-              </motion.div>
+          <Carousel3D visibleCount={3}>
+            {destinations.slice(0, 8).map((d) => (
+              <DestinationCard key={d.id} destination={d} />
             ))}
-          </div>
+          </Carousel3D>
         </Container>
       </section>
 
@@ -422,8 +424,8 @@ const Index = () => {
             <h2 className="font-serif text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">Are you a hospital or wellness provider?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/70">Join our network of verified healthcare providers and connect with thousands of international patients.</p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
-              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" style={{ boxShadow: "0 0 25px rgba(34,211,238,0.4)" }} asChild>
-                <Link to="/partners/apply">Apply to be a Partner <ArrowRight className="h-4 w-4" /></Link>
+              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" style={{ boxShadow: "0 0 25px rgba(34,211,238,0.4)" }} onClick={() => setPartnerOpen(true)}>
+                Apply to be a Partner <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>
           </motion.div>

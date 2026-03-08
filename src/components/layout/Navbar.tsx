@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Treatments", href: "/treatments" },
   { label: "Wellness", href: "/wellness" },
   { label: "Destinations", href: "/destinations/turkey" },
-  { label: "Partners", href: "/partners/apply" },
   { label: "About", href: "/about" },
 ];
 

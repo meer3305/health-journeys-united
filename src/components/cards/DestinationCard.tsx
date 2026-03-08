@@ -11,12 +11,13 @@ export function DestinationCard({ destination }: DestinationCardProps) {
   return (
     <Link
       to={`/destinations/${destination.slug}`}
-      className="group relative block h-80 overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+      className="group relative block h-80 overflow-hidden rounded-2xl shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/10"
+      style={{ willChange: "transform, opacity" }}
     >
       <img
         src={destination.image}
         alt={destination.name}
-        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
         loading="lazy"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
