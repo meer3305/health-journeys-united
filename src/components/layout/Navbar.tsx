@@ -8,6 +8,7 @@ import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 const navLinks = [
   { label: "Treatments", href: "/treatments" },
   { label: "Wellness", href: "/wellness" },
+  { label: "Providers", href: "/providers/istanbul-health-centre" },
   { label: "Destinations", href: "/destinations/turkey" },
   { label: "Partners", href: "/partners/apply" },
   { label: "About", href: "/about" },
