@@ -175,6 +175,16 @@ const Index = () => {
                   size="lg"
                   className="gap-2 shadow-lg transition-all border border-white/20"
                   style={{ background: "linear-gradient(135deg, hsl(187 92% 53%) 0%, hsl(174 78% 26%) 100%)", color: "white", boxShadow: "0 0 20px rgba(34,211,238,0.3)" }}
+                  onClick={() => setConciergeOpen(true)}
+                >
+                  <Heart className="h-4 w-4" /> Start Your Health Journey
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
+                <Button
+                  size="lg"
+                  className="gap-2 shadow-lg transition-all border border-white/20"
+                  style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", color: "white" }}
                   onClick={() => setFindOpen(true)}
                 >
                   <Sparkles className="h-4 w-4" /> AI Treatment Finder
@@ -189,16 +199,6 @@ const Index = () => {
                   asChild
                 >
                   <Link to="/wellness">Explore Wellness</Link>
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="gap-2 border-white/30 text-white hover:bg-white/15 shadow-lg"
-                  style={{ backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.08)" }}
-                >
-                  <Phone className="h-4 w-4" /> Talk to Care Coordinator
                 </Button>
               </motion.div>
             </motion.div>
