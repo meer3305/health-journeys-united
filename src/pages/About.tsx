@@ -20,35 +20,27 @@ const values = [
 const About = () => {
   return (
     <div>
-      <HeroSection
-        title="About MediVoyage"
-        subtitle="We're on a mission to make world-class healthcare accessible to everyone, everywhere."
-        compact
-      />
-
-      {/* Mission */}
-      <section className="py-20">
+      <HeroSection title="About MedXTrawell" subtitle="We're on a mission to make world-class healthcare accessible to everyone, everywhere." compact />
+      <section className="py-24">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="font-serif text-3xl font-bold">Our Mission</h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              MediVoyage was founded on a simple belief: everyone deserves access to the best healthcare, 
-              no matter where they live. We connect patients with verified, accredited hospitals and wellness 
+              MedXTrawell was founded on a simple belief: everyone deserves access to the best healthcare,
+              no matter where they live. We connect patients with verified, accredited hospitals and wellness
               providers across the globe — making medical travel safe, transparent, and affordable.
             </p>
           </div>
         </Container>
       </section>
-
-      {/* How it works */}
-      <section className="bg-muted/30 py-20">
+      <section className="bg-muted/30 py-24">
         <Container>
           <SectionHeader title="How the Platform Works" subtitle="A seamless journey from discovery to recovery" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {values.map(({ icon: Icon, title, description }) => (
               <div key={title} className="rounded-xl border border-border bg-card p-6 text-center shadow-sm">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                  <Icon className="h-6 w-6 text-primary" />
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10">
+                  <Icon className="h-6 w-6 text-accent" />
                 </div>
                 <h3 className="mt-4 font-serif text-lg font-semibold">{title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{description}</p>
@@ -57,18 +49,14 @@ const About = () => {
           </div>
         </Container>
       </section>
-
-      {/* Team */}
-      <section className="py-20">
+      <section className="py-24">
         <Container>
           <SectionHeader title="Meet the Team" subtitle="Healthcare and technology leaders building the future of medical travel" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
               <div key={member.name} className="rounded-xl border border-border bg-card p-6 text-center shadow-sm">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/20">
-                  <span className="font-serif text-xl font-bold text-primary">
-                    {member.name.split(" ").map((n) => n[0]).join("")}
-                  </span>
+                  <span className="font-serif text-xl font-bold text-primary">{member.name.split(" ").map((n) => n[0]).join("")}</span>
                 </div>
                 <h4 className="mt-4 font-serif text-base font-semibold">{member.name}</h4>
                 <p className="text-sm text-accent">{member.role}</p>
@@ -78,14 +66,12 @@ const About = () => {
           </div>
         </Container>
       </section>
-
-      {/* Trust & accreditation */}
-      <section className="bg-primary py-16">
+      <section className="bg-primary py-20">
         <Container>
           <div className="text-center">
             <h2 className="font-serif text-3xl font-bold text-primary-foreground">Trust & Accreditation</h2>
             <p className="mx-auto mt-4 max-w-2xl text-primary-foreground/70">
-              All providers on MediVoyage undergo rigorous vetting. We only work with JCI-accredited, 
+              All providers on MedXTrawell undergo rigorous vetting. We only work with JCI-accredited,
               ISO-certified, or nationally recognised healthcare facilities.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-8">

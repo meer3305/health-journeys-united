@@ -26,7 +26,7 @@ export function HeroSection({
 }: HeroSectionProps) {
   return (
     <section
-      className={`relative flex items-center ${compact ? "min-h-[50vh]" : "min-h-[85vh]"}`}
+      className={`relative flex items-center ${compact ? "min-h-[45vh]" : "min-h-[90vh]"}`}
       style={
         backgroundImage
           ? { backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center" }
@@ -34,36 +34,36 @@ export function HeroSection({
       }
     >
       {backgroundImage && overlay && (
-        <div className="absolute inset-0 bg-foreground/60" />
+        <div className="absolute inset-0 bg-foreground/55" />
       )}
       {!backgroundImage && (
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
       )}
-      <Container className={`relative z-10 ${compact ? "py-16" : "py-24"}`}>
+      <Container className={`relative z-10 ${compact ? "py-16" : "py-28"}`}>
         <div className="max-w-3xl">
           <h1
-            className={`font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl ${
+            className={`font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl xl:text-7xl ${
               backgroundImage ? "text-background" : "text-foreground"
             }`}
           >
             {title}
           </h1>
           <p
-            className={`mt-6 text-lg sm:text-xl ${
+            className={`mt-6 text-lg sm:text-xl lg:text-2xl ${
               backgroundImage ? "text-background/80" : "text-muted-foreground"
             }`}
           >
             {subtitle}
           </p>
           {(primaryCta || secondaryCta) && (
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap gap-4">
               {primaryCta && (
-                <Button size="lg" asChild>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-6 text-base" asChild>
                   <Link to={primaryCta.href}>{primaryCta.label}</Link>
                 </Button>
               )}
               {secondaryCta && (
-                <Button size="lg" variant="outline" className={backgroundImage ? "border-background/30 text-background hover:bg-background/10" : ""} asChild>
+                <Button size="lg" variant="outline" className={`px-8 py-6 text-base ${backgroundImage ? "border-background/30 text-background hover:bg-background/10" : ""}`} asChild>
                   <Link to={secondaryCta.href}>{secondaryCta.label}</Link>
                 </Button>
               )}

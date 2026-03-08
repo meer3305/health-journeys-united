@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 40 30% 99%;
     --foreground: 210 20% 12%;
 
     --card: 0 0% 100%;
@@ -19,17 +19,17 @@
     --secondary: 42 52% 54%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 20% 96%;
+    --muted: 38 25% 95%;
     --muted-foreground: 210 10% 45%;
 
     --accent: 42 52% 54%;
-    --accent-foreground: 210 20% 12%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 90%;
-    --input: 210 15% 90%;
+    --border: 35 15% 88%;
+    --input: 35 15% 88%;
     --ring: 180 80% 24%;
 
     --radius: 0.75rem;
@@ -45,10 +45,11 @@
 
     /* Custom tokens */
     --gold: 42 52% 54%;
-    --gold-light: 42 52% 92%;
-    --teal-light: 180 40% 95%;
+    --gold-light: 40 40% 93%;
+    --teal-light: 180 30% 96%;
     --teal-dark: 180 80% 18%;
-    --cream: 40 30% 97%;
+    --cream: 38 30% 97%;
+    --warm-bg: 38 25% 97%;
 
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
