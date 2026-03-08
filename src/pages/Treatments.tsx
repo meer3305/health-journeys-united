@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { Container } from "@/components/layout/Container";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TreatmentCard } from "@/components/cards/TreatmentCard";
+import { Treatment3DCard } from "@/components/cards/Treatment3DCard";
+import { Carousel3D } from "@/components/Carousel3D";
 import { MatchMeModal } from "@/components/MatchMeModal";
 import { treatments, specialties } from "@/data/mockData";
 import { SlidersHorizontal, X, Sparkles, Search } from "lucide-react";
@@ -28,7 +30,6 @@ const Treatments = () => {
 
   const handleMatchResults = (filters: Record<string, string>) => {
     setMode("browse");
-    // Simple filter mapping
     if (filters.destination && filters.destination !== "No preference") {
       setCountry(filters.destination);
     }
@@ -107,6 +108,19 @@ const Treatments = () => {
   return (
     <div>
       <HeroSection title="Find Your Treatment" subtitle="Browse verified treatments across specialties and destinations worldwide." compact />
+
+      {/* Featured 3D Carousel */}
+      <section className="py-12 bg-muted/30">
+        <Container>
+          <h2 className="mb-8 text-center font-serif text-2xl font-bold">Featured Treatments</h2>
+          <Carousel3D>
+            {treatments.slice(0, 8).map((t) => (
+              <Treatment3DCard key={t.id} treatment={t} />
+            ))}
+          </Carousel3D>
+        </Container>
+      </section>
+
       <section className="py-12">
         <Container>
           <div className="mb-6 flex items-center gap-3">

@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { Container } from "@/components/layout/Container";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { WellnessCard } from "@/components/cards/WellnessCard";
+import { Wellness3DCard } from "@/components/cards/Wellness3DCard";
+import { Carousel3D } from "@/components/Carousel3D";
 import { MatchMeModal } from "@/components/MatchMeModal";
 import { wellnessPrograms, wellnessTypes, wellnessCategories } from "@/data/mockData";
 import { SlidersHorizontal, X, Sparkles, Search } from "lucide-react";
@@ -110,6 +112,19 @@ const Wellness = () => {
   return (
     <div>
       <HeroSection title="Wellness Programs" subtitle="Curated health and wellness retreats to help you reset, restore, and renew." compact />
+
+      {/* Featured 3D Carousel */}
+      <section className="py-12 bg-muted/30">
+        <Container>
+          <h2 className="mb-8 text-center font-serif text-2xl font-bold">Featured Programs</h2>
+          <Carousel3D>
+            {wellnessPrograms.slice(0, 8).map((p) => (
+              <Wellness3DCard key={p.id} program={p} />
+            ))}
+          </Carousel3D>
+        </Container>
+      </section>
+
       <section className="py-12">
         <Container>
           {/* Category tabs */}
