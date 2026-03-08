@@ -31,15 +31,8 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10">
-      {/* Glass background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(180deg, hsl(200 25% 7%) 0%, hsl(200 25% 5%) 100%)",
-        }}
-      />
-      {/* Decorative gradient orbs */}
+    <footer className="relative overflow-hidden border-t border-border/30">
+      <div className="absolute inset-0 bg-foreground" />
       <div className="absolute top-0 left-1/4 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-accent/5 blur-3xl" />
 
@@ -47,33 +40,23 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2">
-              <motion.div
-                whileHover={{ rotateY: 20, scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl shadow-lg border border-white/20"
-                style={{
-                  background: "linear-gradient(135deg, hsl(174 65% 28%) 0%, hsl(174 65% 38%) 100%)",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <span className="font-serif text-lg font-bold text-white">M</span>
-              </motion.div>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl shadow-md bg-primary">
+                <span className="font-serif text-lg font-bold text-primary-foreground">M</span>
+              </div>
               <span className="font-serif text-xl font-bold text-white">MedXTrawell</span>
             </Link>
             <p className="mt-4 text-sm text-white/50 leading-relaxed">
               World-class healthcare, wherever you are. Connecting patients with verified providers worldwide.
             </p>
             <div className="mt-6 flex gap-3">
-              {["Twitter", "LinkedIn", "Instagram", "Facebook"].map((social) => (
-                <motion.a
+              {["Twitter", "LinkedIn", "Instagram"].map((social) => (
+                <a
                   key={social}
                   href="#"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  className="rounded-lg px-3 py-1.5 text-xs text-white/40 transition-all hover:text-white/80 border border-white/10 hover:border-white/25"
-                  style={{ backdropFilter: "blur(8px)" }}
+                  className="rounded-lg px-3 py-1.5 text-xs text-white/40 transition-all hover:text-white/80 border border-white/10 hover:border-accent/30"
                 >
                   {social}
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
@@ -83,7 +66,7 @@ export function Footer() {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-white/50 transition-all hover:text-white/90 hover:translate-x-1 inline-block">
+                    <Link to={link.href} className="text-sm text-white/50 transition-colors hover:text-white/90">
                       {link.label}
                     </Link>
                   </li>
