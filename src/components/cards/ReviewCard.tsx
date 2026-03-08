@@ -7,7 +7,7 @@ interface ReviewCardProps {
 
 export function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+    <div className="flex flex-col rounded-2xl glass-card p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       <div className="flex gap-1 mb-4">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
@@ -17,11 +17,11 @@ export function ReviewCard({ review }: ReviewCardProps) {
         ))}
       </div>
       <p className="flex-1 text-sm leading-relaxed text-muted-foreground italic">"{review.text}"</p>
-      <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
+      <div className="mt-5 flex items-center gap-3 border-t border-border/50 pt-4">
         <img
           src={review.avatar}
           alt={review.name}
-          className="h-10 w-10 rounded-full object-cover ring-2 ring-border"
+          className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20"
           loading="lazy"
         />
         <div>

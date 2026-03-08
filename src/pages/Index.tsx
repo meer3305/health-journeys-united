@@ -5,10 +5,11 @@ import { TreatmentCard } from "@/components/cards/TreatmentCard";
 import { WellnessCard } from "@/components/cards/WellnessCard";
 import { DestinationCard } from "@/components/cards/DestinationCard";
 import { ReviewCard } from "@/components/cards/ReviewCard";
+import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { treatments, wellnessPrograms, destinations, reviews, trustStats, howItWorks, virtualCardFeatures } from "@/data/mockData";
-import { ClipboardList, Search, Plane, CreditCard, Check, Shield, ArrowRight, Banknote, Clock, ShieldCheck } from "lucide-react";
+import { ClipboardList, Search, Plane, Check, ArrowRight, Banknote, Clock, ShieldCheck, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
 
 const stepIcons = [ClipboardList, Search, Plane];
@@ -31,7 +32,7 @@ const Index = () => {
       />
 
       {/* Trust Bar */}
-      <section className="border-b border-border bg-card py-12">
+      <section className="border-b border-border bg-card/80 backdrop-blur-sm py-12">
         <Container>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {trustStats.map((stat, i) => (
@@ -67,12 +68,12 @@ const Index = () => {
                   whileInView="visible"
                   viewport={{ once: true }}
                   variants={fadeUp}
-                  className="group relative rounded-2xl border border-border bg-card p-8 text-center shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                  className="group relative rounded-2xl glass-card p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/15 transition-colors group-hover:bg-accent/25">
-                    <Icon className="h-7 w-7 text-accent" />
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 transition-colors group-hover:bg-primary/20">
+                    <Icon className="h-7 w-7 text-primary" />
                   </div>
-                  <div className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-primary font-serif text-sm font-bold text-primary-foreground shadow-md">
+                  <div className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full bg-accent font-serif text-sm font-bold text-accent-foreground shadow-md">
                     {step.step}
                   </div>
                   <h3 className="mt-6 font-serif text-xl font-semibold">{step.title}</h3>
@@ -85,14 +86,14 @@ const Index = () => {
       </section>
 
       {/* Accent divider */}
-      <div className="mx-auto flex items-center gap-3">
-        <div className="h-px flex-1 bg-border" />
-        <div className="h-1.5 w-12 rounded-full bg-accent" />
-        <div className="h-px flex-1 bg-border" />
+      <div className="mx-auto flex items-center gap-3 px-8">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="h-1.5 w-16 rounded-full bg-gradient-to-r from-primary to-accent" />
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
 
       {/* Featured Treatments */}
-      <section className="bg-muted/30 py-28">
+      <section className="py-28">
         <Container>
           <SectionHeader title="Featured Treatments" subtitle="Trusted by thousands of international patients" />
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -103,7 +104,7 @@ const Index = () => {
             ))}
           </div>
           <div className="mt-14 text-center">
-            <Button variant="outline" size="lg" className="gap-2 border-accent text-accent hover:bg-accent/5" asChild>
+            <Button size="lg" className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg" asChild>
               <Link to="/treatments">View All Treatments <ArrowRight className="h-4 w-4" /></Link>
             </Button>
           </div>
@@ -111,8 +112,9 @@ const Index = () => {
       </section>
 
       {/* Featured Wellness */}
-      <section className="py-28">
-        <Container>
+      <section className="relative py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
+        <Container className="relative">
           <SectionHeader title="Wellness Programs" subtitle="Reset, restore, and renew" />
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {wellnessPrograms.slice(0, 4).map((p, i) => (
@@ -122,7 +124,7 @@ const Index = () => {
             ))}
           </div>
           <div className="mt-14 text-center">
-            <Button variant="outline" size="lg" className="gap-2 border-accent text-accent hover:bg-accent/5" asChild>
+            <Button size="lg" className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg" asChild>
               <Link to="/wellness">View All Programs <ArrowRight className="h-4 w-4" /></Link>
             </Button>
           </div>
@@ -130,94 +132,71 @@ const Index = () => {
       </section>
 
       {/* Accent divider */}
-      <div className="mx-auto flex items-center gap-3">
-        <div className="h-px flex-1 bg-border" />
-        <div className="h-1.5 w-12 rounded-full bg-accent" />
-        <div className="h-px flex-1 bg-border" />
+      <div className="mx-auto flex items-center gap-3 px-8">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="h-1.5 w-16 rounded-full bg-gradient-to-r from-primary to-accent" />
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
 
-      {/* BNPL Section */}
-      <section className="py-28 bg-gradient-to-b from-background to-muted/30">
-        <Container>
-          <div className="grid gap-12 items-center lg:grid-cols-2">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-                <Banknote className="h-4 w-4" /> Flexible Payments
-              </span>
-              <h2 className="mt-6 font-serif text-3xl font-bold sm:text-4xl">
-                Buy Now, Pay Later
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                Don't let finances delay your treatment. Split any procedure into affordable monthly payments with 0% interest.
-              </p>
-              <div className="mt-8 space-y-5">
-                {[
-                  { icon: ShieldCheck, title: "No credit check required", desc: "Quick, soft-check approval in under 2 minutes" },
-                  { icon: Clock, title: "Pay in 3, 6, or 12 instalments", desc: "Choose the plan that fits your budget" },
-                  { icon: Banknote, title: "0% interest on all plans", desc: "Pay exactly what you see — no hidden fees" },
-                ].map((item) => (
-                  <div key={item.title} className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10">
-                      <item.icon className="h-5 w-5 text-accent" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">{item.title}</h4>
-                      <p className="text-sm text-muted-foreground">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Button className="mt-8 gap-2 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg" size="lg" asChild>
-                <Link to="/treatments">Check Your Eligibility <ArrowRight className="h-4 w-4" /></Link>
-              </Button>
-            </motion.div>
+      {/* Virtual Card + BNPL Combined Section */}
+      <section className="py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background" />
+        <Container className="relative">
+          <div className="text-center mb-16">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary"
+            >
+              <CreditCard className="h-4 w-4" /> Exclusive Member Benefits
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="mt-6 font-serif text-3xl font-bold sm:text-4xl lg:text-5xl"
+            >
+              Your MedXTrawell Card
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-4 mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed"
+            >
+              One card for your entire medical travel journey — with built-in Buy Now, Pay Later.
+            </motion.p>
+          </div>
+
+          <div className="grid gap-16 items-center lg:grid-cols-2">
+            {/* 3D Card */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center"
+            >
+              <div className="w-full max-w-md">
+                <MedXTrawellCard3D />
+                <p className="mt-4 text-center text-xs text-muted-foreground">
+                  ✦ Hover over the card to see the 3D effect
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Features + BNPL */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex justify-center"
             >
-              <div className="relative w-full max-w-sm">
-                <div className="rounded-2xl border border-border bg-card p-8 shadow-xl">
-                  <p className="text-sm text-muted-foreground">Example: Knee Replacement</p>
-                  <p className="mt-2 font-serif text-3xl font-bold text-primary">£3,200</p>
-                  <div className="mt-6 space-y-3">
-                    {[
-                      { months: 3, amount: "£1,067/mo" },
-                      { months: 6, amount: "£533/mo" },
-                      { months: 12, amount: "£267/mo" },
-                    ].map((plan) => (
-                      <div key={plan.months} className="flex items-center justify-between rounded-xl bg-muted/50 px-5 py-3.5">
-                        <span className="text-sm font-medium">{plan.months} months</span>
-                        <span className="font-semibold text-primary">{plan.amount}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-4 text-center text-xs text-muted-foreground">0% APR · No hidden fees · Cancel anytime</p>
-                </div>
-                <div className="absolute -bottom-3 -right-3 -z-10 h-full w-full rounded-2xl bg-accent/10" />
-              </div>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Virtual Card Section */}
-      <section className="py-28">
-        <Container>
-          <div className="grid gap-12 items-center lg:grid-cols-2">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent">
-                <CreditCard className="h-4 w-4" /> Member Benefits
-              </span>
-              <h2 className="mt-6 font-serif text-3xl font-bold sm:text-4xl">
-                Your Virtual MedXTrawell Card
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                One card for your entire medical travel journey. Access records, priority bookings, and exclusive member benefits worldwide.
-              </p>
-              <ul className="mt-8 space-y-3">
+              <h3 className="font-serif text-2xl font-bold">Card Benefits</h3>
+              <ul className="mt-6 space-y-3">
                 {virtualCardFeatures.map((feature) => (
                   <li key={feature} className="flex items-center gap-3">
                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
@@ -227,46 +206,39 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Button className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg" size="lg" asChild>
-                <Link to="/signup">Get Your Free Card</Link>
+
+              <div className="mt-8 rounded-xl glass-card p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Banknote className="h-5 w-5 text-accent" />
+                  <h4 className="font-serif text-lg font-semibold">Buy Now, Pay Later</h4>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">Split any treatment into affordable monthly payments with your MedXTrawell Card.</p>
+                <div className="space-y-2.5">
+                  {[
+                    { icon: ShieldCheck, text: "No credit check — instant approval" },
+                    { icon: Clock, text: "3, 6, or 12 month payment plans" },
+                    { icon: Banknote, text: "0% interest on all plans" },
+                  ].map((item) => (
+                    <div key={item.text} className="flex items-center gap-3 text-sm">
+                      <item.icon className="h-4 w-4 text-primary shrink-0" />
+                      <span className="text-foreground">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Button className="mt-6 gap-2 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg" size="lg" asChild>
+                <Link to="/signup">Get Your Free Card <ArrowRight className="h-4 w-4" /></Link>
               </Button>
-            </div>
-            <div className="flex justify-center">
-              <motion.div
-                whileHover={{ rotateY: 5, rotateX: -5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-full max-w-sm overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-primary to-teal-dark p-8 text-primary-foreground shadow-2xl"
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wider opacity-70">Virtual Care Card</p>
-                    <h3 className="mt-1 font-serif text-2xl font-bold">MedXTrawell</h3>
-                  </div>
-                  <Shield className="h-8 w-8 opacity-40" />
-                </div>
-                <div className="mt-10">
-                  <p className="font-mono text-lg tracking-widest">•••• •••• •••• 4829</p>
-                </div>
-                <div className="mt-8 flex items-end justify-between">
-                  <div>
-                    <p className="text-xs opacity-60">Card Holder</p>
-                    <p className="text-sm font-medium">YOUR NAME HERE</p>
-                  </div>
-                  <div>
-                    <p className="text-xs opacity-60">Valid Thru</p>
-                    <p className="text-sm font-medium">12/28</p>
-                  </div>
-                  <CreditCard className="h-6 w-6 opacity-40" />
-                </div>
-              </motion.div>
-            </div>
+            </motion.div>
           </div>
         </Container>
       </section>
 
       {/* Destinations */}
-      <section className="bg-muted/30 py-28">
-        <Container>
+      <section className="relative py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
+        <Container className="relative">
           <SectionHeader title="Popular Destinations" subtitle="World-class care in stunning locations" />
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {destinations.slice(0, 8).map((d, i) => (

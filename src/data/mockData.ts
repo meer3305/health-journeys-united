@@ -140,7 +140,7 @@ export const wellnessPrograms: WellnessProgram[] = [
     id: "w1", slug: "stress-burnout-retreat-bali", name: "Stress & Burnout Retreat", location: "Ubud, Bali", country: "Indonesia",
     duration: "7 days", durationDays: 7, price: 1800, currency: "£", rating: 4.9, reviewCount: 187,
     type: "Stress & Mental Health", category: "retreat",
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbec6c?w=800",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
     description: "A transformative 7-day retreat designed for professionals experiencing chronic stress and burnout. Combines traditional Balinese healing practices with modern therapeutic techniques.",
     included: ["Luxury villa accommodation", "Daily yoga & meditation", "Spa treatments (5 sessions)", "Nutritional programme", "One-on-one therapy sessions", "Nature excursions"],
   },
