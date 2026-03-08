@@ -13,6 +13,7 @@ import { TrustBadges } from "@/components/sections/TrustBadges";
 import { ComparisonTool } from "@/components/sections/ComparisonTool";
 import { CostCalculator } from "@/components/sections/CostCalculator";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
+import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { treatments, wellnessPrograms, destinations, reviews, trustStats, howItWorks, virtualCardFeatures } from "@/data/mockData";
@@ -24,8 +25,8 @@ const stepIcons = [ClipboardList, Search, Plane];
 const trustIcons = [BadgeCheck, Globe, Users, Star];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.35, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } }),
+  hidden: { opacity: 0, y: 16 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } }),
 };
 
 function Glass3DCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -71,10 +72,12 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 
 const Index = () => {
   const [findOpen, setFindOpen] = useState(false);
+  const [partnerOpen, setPartnerOpen] = useState(false);
 
   return (
     <div>
       <FindMyTreatmentModal open={findOpen} onClose={() => setFindOpen(false)} />
+      <PartnerApplicationModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
 
       {/* Hero */}
       <section className="relative flex items-center overflow-hidden min-h-[92vh]">
@@ -422,8 +425,8 @@ const Index = () => {
             <h2 className="font-serif text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">Are you a hospital or wellness provider?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/70">Join our network of verified healthcare providers and connect with thousands of international patients.</p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
-              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" style={{ boxShadow: "0 0 25px rgba(34,211,238,0.4)" }} asChild>
-                <Link to="/partners/apply">Apply to be a Partner <ArrowRight className="h-4 w-4" /></Link>
+              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" style={{ boxShadow: "0 0 25px rgba(34,211,238,0.4)" }} onClick={() => setPartnerOpen(true)}>
+                Apply to be a Partner <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>
           </motion.div>

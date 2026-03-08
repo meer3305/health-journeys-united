@@ -19,7 +19,8 @@ export function FloatingChatButton() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-shadow animate-pulse-glow"
+          className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-shadow"
+          style={{ boxShadow: "0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.15)" }}
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6" />
