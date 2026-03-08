@@ -266,29 +266,6 @@ export function Navbar() {
               <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
                 <Link to="/signup"><UserPlus className="h-3.5 w-3.5 mr-1.5" />Sign Up</Link>
               </Button>
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                animate={{
-                  boxShadow: [
-                    "0 0 12px rgba(34,211,238,0.2)",
-                    "0 0 24px rgba(34,211,238,0.35)",
-                    "0 0 12px rgba(34,211,238,0.2)",
-                  ],
-                }}
-                transition={{
-                  boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                }}
-                className="rounded-full"
-              >
-                <Button
-                  size="sm"
-                  className="gap-1.5 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground text-[13px]"
-                  asChild
-                >
-                  <Link to="/treatments"><Sparkles className="h-3.5 w-3.5" /> Find Treatment</Link>
-                </Button>
-              </motion.div>
             </div>
 
             {/* Mobile toggle */}

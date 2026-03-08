@@ -186,9 +186,9 @@ const Index = () => {
                   size="lg"
                   className="gap-2 shadow-lg transition-all border border-white/20"
                   style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", color: "white" }}
-                  onClick={() => setFindOpen(true)}
+                  onClick={() => setConciergeOpen(true)}
                 >
-                  <Sparkles className="h-4 w-4" /> AI Treatment Finder
+                  <Sparkles className="h-4 w-4" /> AI Suggestions
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
