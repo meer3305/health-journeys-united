@@ -3,6 +3,8 @@ import { Container } from "@/components/layout/Container";
 import { treatments, reviews } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Star, MapPin, Clock, BadgeCheck, Check } from "lucide-react";
+import { CompanionOption } from "@/components/sections/CompanionOption";
+import { AvailabilityCalendar } from "@/components/sections/AvailabilityCalendar";
 import { useState } from "react";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -156,6 +158,12 @@ const TreatmentDetail = () => {
 
                 {/* Cost Breakdown */}
                 <CostBreakdown treatmentName={treatment.name} treatmentCost={treatment.price} />
+
+                {/* Companion Option */}
+                <CompanionOption treatmentCost={treatment.price} />
+
+                {/* Availability Calendar */}
+                <AvailabilityCalendar />
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { RecommendationCard } from "@/components/dashboard/RecommendationCard";
 import { CareCardWidget } from "@/components/dashboard/CareCardWidget";
 import { HealthJourneyTimeline } from "@/components/dashboard/HealthJourneyTimeline";
 import { CoordinatorCard } from "@/components/dashboard/CoordinatorCard";
+import { MedicalRecordsUpload } from "@/components/dashboard/MedicalRecordsUpload";
 import { treatments, wellnessPrograms } from "@/data/mockData";
 import { Sparkles, Clock } from "lucide-react";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
@@ -55,6 +56,9 @@ const Dashboard = () => {
                     <p className="text-xs text-muted-foreground">Start exploring treatments and programs to see your activity here.</p>
                   </div>
                 </div>
+
+                {/* Medical Records Upload */}
+                <MedicalRecordsUpload />
               </div>
 
               {/* Right column */}
