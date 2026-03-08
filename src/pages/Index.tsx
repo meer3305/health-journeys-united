@@ -251,6 +251,9 @@ const Index = () => {
         </Container>
       </section>
 
+      {/* Why Choose Us */}
+      <WhyChooseUs />
+
       {/* Patient Journey */}
       <PatientJourney />
 
