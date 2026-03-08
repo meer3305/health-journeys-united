@@ -14,11 +14,12 @@ import { TrustBadges } from "@/components/sections/TrustBadges";
 import { ComparisonTool } from "@/components/sections/ComparisonTool";
 import { CostCalculator } from "@/components/sections/CostCalculator";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
+import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { treatments, wellnessPrograms, destinations, reviews, trustStats, howItWorks, virtualCardFeatures } from "@/data/mockData";
-import { ClipboardList, Search, Plane, Check, ArrowRight, Banknote, Clock, ShieldCheck, CreditCard, Sparkles, BadgeCheck, Globe, Users, Star, ChevronDown, Phone } from "lucide-react";
+import { ClipboardList, Search, Plane, Check, ArrowRight, Banknote, Clock, ShieldCheck, CreditCard, Sparkles, BadgeCheck, Globe, Users, Star, ChevronDown, Phone, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -73,11 +74,13 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 const Index = () => {
   const [findOpen, setFindOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
+  const [conciergeOpen, setConciergeOpen] = useState(false);
 
   return (
     <div>
       <FindMyTreatmentModal open={findOpen} onClose={() => setFindOpen(false)} />
       <PartnerApplicationModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
+      <HealthConciergeWizard open={conciergeOpen} onClose={() => setConciergeOpen(false)} />
 
       {/* Hero */}
       <section className="relative flex items-center overflow-hidden min-h-[92vh]">
