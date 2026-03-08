@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 import { QuickSearchModal } from "@/components/QuickSearchModal";
+import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 
 // ─── Mega Menu Data ──────────────────────────────────────────
 const treatmentsMega = [
