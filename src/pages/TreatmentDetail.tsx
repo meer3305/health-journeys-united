@@ -6,6 +6,9 @@ import { Star, MapPin, Clock, BadgeCheck, Check } from "lucide-react";
 import { useState } from "react";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { CostBreakdown } from "@/components/sections/CostBreakdown";
+import { TreatmentJourneyTimeline } from "@/components/sections/TreatmentJourneyTimeline";
+import { RecoveryTimeline } from "@/components/sections/RecoveryTimeline";
 
 const tabs = ["Overview", "What's Included", "Provider", "Reviews", "Location"];
 
@@ -71,6 +74,16 @@ const TreatmentDetail = () => {
                         </div>
                       ))}
                     </div>
+
+                    {/* Treatment Journey Timeline */}
+                    <div className="mt-10">
+                      <TreatmentJourneyTimeline />
+                    </div>
+
+                    {/* Recovery Timeline */}
+                    <div className="mt-10">
+                      <RecoveryTimeline />
+                    </div>
                   </div>
                 )}
                 {activeTab === "What's Included" && (
@@ -110,33 +123,39 @@ const TreatmentDetail = () => {
                 )}
               </div>
             </div>
-            <div className="w-full lg:w-80">
-              <div className="sticky top-24 rounded-xl border border-border bg-card p-6 shadow-lg">
-                <p className="text-sm text-muted-foreground">Starting from</p>
-                <p className="mt-1 font-serif text-3xl font-bold text-primary">{formatPrice(treatment.price)}</p>
-                <p className="mt-1 text-xs text-muted-foreground">per person · all-inclusive package</p>
-                {!enquirySent ? (
-                  <>
-                    <Button className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg" onClick={() => setEnquirySent(true)}>Enquire Now</Button>
-                    <Button variant="outline" className="mt-3 w-full" size="lg" asChild><Link to="/signup">Book Consultation</Link></Button>
-                  </>
-                ) : (
-                  <div className="mt-6 rounded-lg bg-primary/10 p-4 text-center">
-                    <Check className="mx-auto h-8 w-8 text-primary" />
-                    <p className="mt-2 text-sm font-medium text-primary">Enquiry Sent!</p>
-                    <p className="mt-1 text-xs text-muted-foreground">A coordinator will contact you within 24 hours.</p>
+            <div className="w-full lg:w-96">
+              <div className="sticky top-24 space-y-6">
+                {/* Price & Booking Card */}
+                <div className="rounded-xl border border-border bg-card p-6 shadow-lg">
+                  <p className="text-sm text-muted-foreground">Starting from</p>
+                  <p className="mt-1 font-serif text-3xl font-bold text-primary">{formatPrice(treatment.price)}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">per person · all-inclusive package</p>
+                  {!enquirySent ? (
+                    <>
+                      <Button className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg" onClick={() => setEnquirySent(true)}>Enquire Now</Button>
+                      <Button variant="outline" className="mt-3 w-full" size="lg" asChild><Link to="/signup">Book Consultation</Link></Button>
+                    </>
+                  ) : (
+                    <div className="mt-6 rounded-lg bg-primary/10 p-4 text-center">
+                      <Check className="mx-auto h-8 w-8 text-primary" />
+                      <p className="mt-2 text-sm font-medium text-primary">Enquiry Sent!</p>
+                      <p className="mt-1 text-xs text-muted-foreground">A coordinator will contact you within 24 hours.</p>
+                    </div>
+                  )}
+                  <div className="mt-6 rounded-lg border border-border p-4">
+                    <p className="text-xs font-medium text-muted-foreground">BNPL Available</p>
+                    <p className="mt-1 text-sm">Pay in <span className="font-semibold">4 instalments</span> of {formatPrice(Math.round(treatment.price / 4))}/month</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Interest-free · No credit check</p>
                   </div>
-                )}
-                <div className="mt-6 rounded-lg border border-border p-4">
-                  <p className="text-xs font-medium text-muted-foreground">BNPL Available</p>
-                  <p className="mt-1 text-sm">Pay in <span className="font-semibold">4 instalments</span> of {formatPrice(Math.round(treatment.price / 4))}/month</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Interest-free · No credit check</p>
+                  <div className="mt-4 space-y-2 text-xs text-muted-foreground">
+                    <p>✓ Free cancellation up to 14 days before</p>
+                    <p>✓ No hidden fees</p>
+                    <p>✓ Price match guarantee</p>
+                  </div>
                 </div>
-                <div className="mt-4 space-y-2 text-xs text-muted-foreground">
-                  <p>✓ Free cancellation up to 14 days before</p>
-                  <p>✓ No hidden fees</p>
-                  <p>✓ Price match guarantee</p>
-                </div>
+
+                {/* Cost Breakdown */}
+                <CostBreakdown treatmentName={treatment.name} treatmentCost={treatment.price} />
               </div>
             </div>
           </div>

@@ -14,11 +14,12 @@ import { TrustBadges } from "@/components/sections/TrustBadges";
 import { ComparisonTool } from "@/components/sections/ComparisonTool";
 import { CostCalculator } from "@/components/sections/CostCalculator";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
+import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { treatments, wellnessPrograms, destinations, reviews, trustStats, howItWorks, virtualCardFeatures } from "@/data/mockData";
-import { ClipboardList, Search, Plane, Check, ArrowRight, Banknote, Clock, ShieldCheck, CreditCard, Sparkles, BadgeCheck, Globe, Users, Star, ChevronDown, Phone } from "lucide-react";
+import { ClipboardList, Search, Plane, Check, ArrowRight, Banknote, Clock, ShieldCheck, CreditCard, Sparkles, BadgeCheck, Globe, Users, Star, ChevronDown, Phone, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -73,11 +74,13 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 const Index = () => {
   const [findOpen, setFindOpen] = useState(false);
   const [partnerOpen, setPartnerOpen] = useState(false);
+  const [conciergeOpen, setConciergeOpen] = useState(false);
 
   return (
     <div>
       <FindMyTreatmentModal open={findOpen} onClose={() => setFindOpen(false)} />
       <PartnerApplicationModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
+      <HealthConciergeWizard open={conciergeOpen} onClose={() => setConciergeOpen(false)} />
 
       {/* Hero */}
       <section className="relative flex items-center overflow-hidden min-h-[92vh]">
@@ -172,6 +175,16 @@ const Index = () => {
                   size="lg"
                   className="gap-2 shadow-lg transition-all border border-white/20"
                   style={{ background: "linear-gradient(135deg, hsl(187 92% 53%) 0%, hsl(174 78% 26%) 100%)", color: "white", boxShadow: "0 0 20px rgba(34,211,238,0.3)" }}
+                  onClick={() => setConciergeOpen(true)}
+                >
+                  <Heart className="h-4 w-4" /> Start Your Health Journey
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
+                <Button
+                  size="lg"
+                  className="gap-2 shadow-lg transition-all border border-white/20"
+                  style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", color: "white" }}
                   onClick={() => setFindOpen(true)}
                 >
                   <Sparkles className="h-4 w-4" /> AI Treatment Finder
@@ -186,16 +199,6 @@ const Index = () => {
                   asChild
                 >
                   <Link to="/wellness">Explore Wellness</Link>
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="gap-2 border-white/30 text-white hover:bg-white/15 shadow-lg"
-                  style={{ backdropFilter: "blur(12px)", background: "rgba(255,255,255,0.08)" }}
-                >
-                  <Phone className="h-4 w-4" /> Talk to Care Coordinator
                 </Button>
               </motion.div>
             </motion.div>
