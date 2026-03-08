@@ -53,12 +53,11 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
         onMouseLeave={() => { setHov(false); setRot({ x: 0, y: 0 }); }}
         animate={{ rotateX: rot.x, rotateY: rot.y, scale: hov ? 1.02 : 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className={`relative overflow-hidden rounded-2xl border border-white/20 shadow-lg ${className}`}
+        className={`relative overflow-hidden rounded-2xl border border-border shadow-lg bg-card ${className}`}
         style={{
           transformStyle: "preserve-3d",
-          background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)",
-          backdropFilter: "blur(20px) saturate(1.5)",
-          WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+          background: "linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%)",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
         }}
       >
         {hov && (
@@ -217,7 +216,7 @@ const Index = () => {
       </section>
 
       {/* Trust Bar with Icons */}
-      <section className="relative overflow-hidden py-14 border-b border-border">
+      <section className="relative overflow-hidden py-14 border-b border-border bg-muted/50">
         <Container>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {trustStats.map((stat, i) => {
@@ -252,7 +251,7 @@ const Index = () => {
       <PatientJourney />
 
       {/* How It Works */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden bg-background">
         <Container className="relative">
           <SectionHeader title="How It Works" subtitle="Three simple steps to world-class care" />
           <div className="grid gap-8 md:grid-cols-3">
@@ -283,7 +282,7 @@ const Index = () => {
       <SavingsComparison />
 
       {/* Featured Treatments */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden bg-muted/40">
         <Container className="relative">
           <SectionHeader title="Featured Treatments" subtitle="Trusted by thousands of international patients" />
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -308,7 +307,7 @@ const Index = () => {
 
       {/* Featured Wellness */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-muted/30 to-accent/8" />
         <Container className="relative">
           <SectionHeader title="Wellness Programs" subtitle="Reset, restore, and renew" />
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -332,8 +331,8 @@ const Index = () => {
       <CostCalculator />
 
       {/* Virtual Card + BNPL */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/3 to-background" />
+      <section className="py-24 relative overflow-hidden bg-muted/30">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
         <Container className="relative">
           <div className="text-center mb-14">
             <motion.span initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -391,7 +390,7 @@ const Index = () => {
 
       {/* Destinations */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-muted/30 to-accent/8" />
         <Container className="relative">
           <SectionHeader title="Popular Destinations" subtitle="World-class care in stunning locations" />
           <Carousel3D visibleCount={3}>
@@ -403,7 +402,7 @@ const Index = () => {
       </section>
 
       {/* Reviews */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden bg-muted/40">
         <Container className="relative">
           <SectionHeader title="What Our Patients Say" />
           <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
