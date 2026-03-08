@@ -4,6 +4,7 @@ import { SectionHeader } from "@/components/sections/SectionHeader";
 import { TreatmentCard } from "@/components/cards/TreatmentCard";
 import { WellnessCard } from "@/components/cards/WellnessCard";
 import { DestinationCard } from "@/components/cards/DestinationCard";
+import { Carousel3D } from "@/components/Carousel3D";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
 import { SavingsComparison } from "@/components/sections/SavingsComparison";
@@ -393,13 +394,11 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-accent/3" />
         <Container className="relative">
           <SectionHeader title="Popular Destinations" subtitle="World-class care in stunning locations" />
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {destinations.slice(0, 8).map((d, i) => (
-              <motion.div key={d.id} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-                <DestinationCard destination={d} />
-              </motion.div>
+          <Carousel3D visibleCount={3}>
+            {destinations.slice(0, 8).map((d) => (
+              <DestinationCard key={d.id} destination={d} />
             ))}
-          </div>
+          </Carousel3D>
         </Container>
       </section>
 
