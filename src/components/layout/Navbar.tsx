@@ -1,25 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 
-const navLinks = [
+const primaryLinks = [
   { label: "Treatments", href: "/treatments" },
   { label: "Wellness", href: "/wellness" },
-  { label: "Providers", href: "/providers/istanbul-health-centre" },
   { label: "Destinations", href: "/destinations/turkey" },
-  { label: "Partners", href: "/partners/apply" },
   { label: "About", href: "/about" },
 ];
+
+const moreLinks = [
+  { label: "Providers", href: "/providers/istanbul-health-centre" },
+  { label: "Partners", href: "/partners/apply" },
+  { label: "Travel Guides", href: "/guides" },
+];
+
+const allLinks = [...primaryLinks, ...moreLinks];
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { currency, setCurrency } = useCurrency();
+  const navRef = useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -27,7 +36,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+  useEffect(() => { setMobileOpen(false); setMoreOpen(false); }, [location.pathname]);
+
+  // Sliding indicator position
+  useEffect(() => {
+    if (!navRef.current) return;
+    const activeLink = navRef.current.querySelector("[data-active='true']") as HTMLElement;
+    if (activeLink) {
+      const navRect = navRef.current.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      setIndicator({
+        left: linkRect.left - navRect.left,
+        width: linkRect.width,
+        opacity: 1,
+      });
+    } else {
+      setIndicator((prev) => ({ ...prev, opacity: 0 }));
+    }
+  }, [location.pathname]);
+
+  const isLinkActive = (href: string) => location.pathname.startsWith(href);
+  const isMoreActive = moreLinks.some((l) => isLinkActive(l.href));
 
   return (
     <nav
@@ -36,13 +65,12 @@ export function Navbar() {
       }`}
       style={{
         background: scrolled
-          ? "rgba(255,255,255,0.88)"
-          : "rgba(255,255,255,0.65)",
+          ? "rgba(255,255,255,0.92)"
+          : "rgba(255,255,255,0.72)",
         backdropFilter: "blur(20px) saturate(1.6)",
         WebkitBackdropFilter: "blur(20px) saturate(1.6)",
       }}
     >
-      {/* Bottom shimmer */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="relative mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
@@ -59,31 +87,81 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden flex-1 items-center justify-center gap-1 md:flex">
-          {navLinks.map((link) => {
-            const isActive = location.pathname.startsWith(link.href);
+        <div ref={navRef} className="hidden flex-1 items-center justify-center gap-0.5 md:flex relative">
+          {/* Sliding indicator pill */}
+          <motion.div
+            className="absolute top-1/2 -translate-y-1/2 h-9 rounded-full bg-primary/10"
+            animate={{
+              left: indicator.left,
+              width: indicator.width,
+              opacity: indicator.opacity,
+            }}
+            transition={{ type: "spring", stiffness: 350, damping: 30 }}
+            style={{ pointerEvents: "none" }}
+          />
+
+          {primaryLinks.map((link) => {
+            const active = isLinkActive(link.href);
             return (
-              <Link key={link.href} to={link.href} className="relative">
-                <motion.div
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.97 }}
-                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
-                    isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  style={isActive ? { background: "hsl(var(--primary) / 0.08)" } : {}}
-                >
-                  {link.label}
-                </motion.div>
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-3 right-3 h-0.5 rounded-full bg-accent"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                  />
-                )}
+              <Link
+                key={link.href}
+                to={link.href}
+                data-active={active}
+                className={`relative z-10 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.label}
               </Link>
             );
           })}
+
+          {/* More dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setMoreOpen(!moreOpen)}
+              data-active={isMoreActive && !moreOpen ? "true" : undefined}
+              className={`relative z-10 flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                isMoreActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              More
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {moreOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setMoreOpen(false)} />
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-1/2 -translate-x-1/2 top-full z-50 mt-2 w-48 overflow-hidden rounded-2xl p-1.5 shadow-xl border border-border bg-background"
+                  >
+                    {moreLinks.map((link) => {
+                      const active = isLinkActive(link.href);
+                      return (
+                        <Link
+                          key={link.href}
+                          to={link.href}
+                          onClick={() => setMoreOpen(false)}
+                          className={`flex items-center rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
+                            active
+                              ? "bg-primary/10 text-primary"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          }`}
+                        >
+                          {link.label}
+                          {active && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Desktop right side */}
@@ -92,7 +170,7 @@ export function Navbar() {
           <div className="relative">
             <button
               onClick={() => setCurrencyOpen(!currencyOpen)}
-              className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:text-foreground border border-transparent hover:border-border"
+              className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-all hover:text-foreground border border-transparent hover:border-border"
             >
               <Globe className="h-3.5 w-3.5" />
               {currency.code}
@@ -126,13 +204,13 @@ export function Navbar() {
               )}
             </AnimatePresence>
           </div>
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
+          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full" asChild>
             <Link to="/signup">Sign Up</Link>
           </Button>
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
             <Button
               size="sm"
-              className="gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-shadow hover:neon-glow"
+              className="gap-1.5 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition-shadow hover:neon-glow"
               asChild
             >
               <Link to="/treatments"><Sparkles className="h-3.5 w-3.5" /> Find Treatment</Link>
@@ -171,8 +249,8 @@ export function Navbar() {
             >
               <div className="flex flex-col p-5">
                 <div className="space-y-1">
-                  {navLinks.map((link, i) => {
-                    const isActive = location.pathname.startsWith(link.href);
+                  {allLinks.map((link, i) => {
+                    const isActive = isLinkActive(link.href);
                     return (
                       <motion.div
                         key={link.href}
@@ -218,10 +296,7 @@ export function Navbar() {
                   <Button variant="outline" className="w-full rounded-xl" asChild>
                     <Link to="/signup" onClick={() => setMobileOpen(false)}>Sign Up</Link>
                   </Button>
-                  <Button
-                    className="w-full gap-1.5 rounded-xl bg-primary hover:bg-primary/90"
-                    asChild
-                  >
+                  <Button className="w-full gap-1.5 rounded-xl bg-primary hover:bg-primary/90" asChild>
                     <Link to="/treatments" onClick={() => setMobileOpen(false)}>
                       <Sparkles className="h-3.5 w-3.5" /> Find Treatment
                     </Link>
