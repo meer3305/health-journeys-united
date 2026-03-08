@@ -133,7 +133,7 @@ const Index = () => {
                   placeholder="Treatment or condition..."
                   className="flex-1 rounded-xl bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-accent/50 border border-white/10"
                 />
-                <select className="flex-1 rounded-xl bg-white/10 px-4 py-3 text-sm text-white/80 focus:outline-none focus:ring-2 focus:ring-accent/50 border border-white/10 appearance-none">
+                <select className="flex-1 rounded-xl bg-white/10 px-4 py-3 text-sm text-white/80 focus:outline-none focus:ring-2 focus:ring-accent/50 border border-white/10 appearance-none [&>option]:text-foreground [&>option]:bg-background">
                   <option value="">Preferred country</option>
                   <option>Turkey</option>
                   <option>Thailand</option>
@@ -141,7 +141,7 @@ const Index = () => {
                   <option>UAE</option>
                   <option>Germany</option>
                 </select>
-                <select className="flex-1 rounded-xl bg-white/10 px-4 py-3 text-sm text-white/80 focus:outline-none focus:ring-2 focus:ring-accent/50 border border-white/10 appearance-none">
+                <select className="flex-1 rounded-xl bg-white/10 px-4 py-3 text-sm text-white/80 focus:outline-none focus:ring-2 focus:ring-accent/50 border border-white/10 appearance-none [&>option]:text-foreground [&>option]:bg-background">
                   <option value="">Budget range</option>
                   <option>Under £2,000</option>
                   <option>£2,000 – £5,000</option>
