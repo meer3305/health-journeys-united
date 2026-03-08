@@ -13,6 +13,7 @@ import { PatientJourney } from "@/components/sections/PatientJourney";
 import { TrustBadges } from "@/components/sections/TrustBadges";
 import { ComparisonTool } from "@/components/sections/ComparisonTool";
 import { CostCalculator } from "@/components/sections/CostCalculator";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
 import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
@@ -249,6 +250,9 @@ const Index = () => {
           </div>
         </Container>
       </section>
+
+      {/* Why Choose Us */}
+      <WhyChooseUs />
 
       {/* Patient Journey */}
       <PatientJourney />
