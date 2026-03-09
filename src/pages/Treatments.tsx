@@ -5,6 +5,8 @@ import { TreatmentCard } from "@/components/cards/TreatmentCard";
 import { Treatment3DCard } from "@/components/cards/Treatment3DCard";
 import { Carousel3D } from "@/components/Carousel3D";
 import { MatchMeModal } from "@/components/MatchMeModal";
+import { ComparisonTool } from "@/components/sections/ComparisonTool";
+import { CostCalculator } from "@/components/sections/CostCalculator";
 import { treatments, specialties } from "@/data/mockData";
 import { SlidersHorizontal, X, Sparkles, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -176,6 +178,12 @@ const Treatments = () => {
         </div>
       )}
       <MatchMeModal type="treatment" open={matchOpen} onClose={() => setMatchOpen(false)} onResults={handleMatchResults} />
+
+      {/* Comparison Tool */}
+      <ComparisonTool />
+
+      {/* Cost Calculator */}
+      <CostCalculator />
     </div>
   );
 };
