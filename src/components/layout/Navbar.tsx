@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 import { QuickSearchModal } from "@/components/QuickSearchModal";
+import { useAuth } from "@/contexts/AuthContext";
+import { LayoutDashboard, LogOut } from "lucide-react";
+import { toast } from "sonner";
 
 // ─── Mega Menu Data ──────────────────────────────────────────
 const treatmentsMega = [
@@ -82,6 +85,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { currency, setCurrency } = useCurrency();
+  const { user, signOut } = useAuth();
   const navRef = useRef<HTMLDivElement>(null);
   const [spotlight, setSpotlight] = useState({ left: 0, width: 0, opacity: 0 });
   const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
