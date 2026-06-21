@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { CurrencyProvider } from "@/contexts/CurrencyContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AnimatePresence } from "framer-motion";
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
@@ -15,6 +17,7 @@ const TreatmentDetail = lazy(() => import("./pages/TreatmentDetail"));
 const Wellness = lazy(() => import("./pages/Wellness"));
 const WellnessDetail = lazy(() => import("./pages/WellnessDetail"));
 const Signup = lazy(() => import("./pages/Signup"));
+const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const PartnersApply = lazy(() => import("./pages/PartnersApply"));
 const About = lazy(() => import("./pages/About"));
@@ -41,7 +44,8 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Suspense fallback={<PageLoader />}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/auth" element={<MainLayout><Auth /></MainLayout>} />
           <Route path="/" element={<MainLayout><Index /></MainLayout>} />
           <Route path="/treatments" element={<MainLayout><Treatments /></MainLayout>} />
           <Route path="/treatments/:slug" element={<MainLayout><TreatmentDetail /></MainLayout>} />
@@ -65,13 +69,15 @@ function AnimatedRoutes() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CurrencyProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </CurrencyProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <CurrencyProvider>
+            <Toaster />
+            <Sonner />
+            <AnimatedRoutes />
+          </CurrencyProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -1,14 +1,21 @@
 import { useState } from "react";
-import { Bell, Search, X, Check } from "lucide-react";
+import { Bell, Search, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { notifications as mockNotifications, type Notification } from "@/data/dashboardData";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export function DashboardHeader() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [search, setSearch] = useState("");
   const unreadCount = notifications.filter((n) => !n.read).length;
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const displayName = (user?.user_metadata as { full_name?: string })?.full_name || user?.email?.split("@")[0] || "Guest";
+  const initials = displayName.split(" ").map((s) => s[0]).slice(0, 2).join("").toUpperCase();
 
   const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   const markRead = (id: string) =>
@@ -110,12 +117,15 @@ export function DashboardHeader() {
         {/* User avatar */}
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-            <span className="text-sm font-semibold text-primary">JW</span>
+            <span className="text-sm font-semibold text-primary">{initials}</span>
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-semibold leading-tight">James Wilson</p>
-            <p className="text-[11px] text-muted-foreground">Premium Member</p>
+            <p className="text-sm font-semibold leading-tight">{displayName}</p>
+            <p className="text-[11px] text-muted-foreground">{user?.email}</p>
           </div>
+          <Button variant="ghost" size="icon" title="Sign out" onClick={async () => { await signOut(); toast.success("Signed out"); navigate("/"); }}>
+            <LogOut className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </header>

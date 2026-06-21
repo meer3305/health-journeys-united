@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 import { QuickSearchModal } from "@/components/QuickSearchModal";
+import { useAuth } from "@/contexts/AuthContext";
+import { LayoutDashboard, LogOut } from "lucide-react";
+import { toast } from "sonner";
 
 // ─── Mega Menu Data ──────────────────────────────────────────
 const treatmentsMega = [
@@ -82,6 +85,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { currency, setCurrency } = useCurrency();
+  const { user, signOut } = useAuth();
   const navRef = useRef<HTMLDivElement>(null);
   const [spotlight, setSpotlight] = useState({ left: 0, width: 0, opacity: 0 });
   const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
@@ -263,9 +267,25 @@ export function Navbar() {
               >
                 <Search className="h-4 w-4" />
               </button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
-                <Link to="/signup"><UserPlus className="h-3.5 w-3.5 mr-1.5" />Sign Up</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
+                    <Link to="/dashboard"><LayoutDashboard className="h-3.5 w-3.5 mr-1.5" />Dashboard</Link>
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" onClick={async () => { await signOut(); toast.success("Signed out"); }}>
+                    <LogOut className="h-3.5 w-3.5 mr-1.5" />Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
+                    <Link to="/auth">Sign In</Link>
+                  </Button>
+                  <Button size="sm" className="rounded-full text-[13px]" asChild>
+                    <Link to="/auth?mode=signup"><UserPlus className="h-3.5 w-3.5 mr-1.5" />Sign Up</Link>
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Mobile toggle */}
