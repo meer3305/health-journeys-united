@@ -9,6 +9,7 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
 import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
+import { ContactSection } from "@/components/sections/ContactSection";
 import { ReviewCard } from "@/components/cards/ReviewCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -243,6 +244,9 @@ const Index = () => {
 
       {/* Patient Stories */}
       <PatientStories />
+
+      {/* Contact / Inquiry */}
+      <ContactSection />
 
       {/* Reviews */}
       <section className="py-20 relative overflow-hidden bg-muted/40">
