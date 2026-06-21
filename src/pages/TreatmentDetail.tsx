@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Container } from "@/components/layout/Container";
 import { treatments, reviews } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,9 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { CostBreakdown } from "@/components/sections/CostBreakdown";
 import { TreatmentJourneyTimeline } from "@/components/sections/TreatmentJourneyTimeline";
 import { RecoveryTimeline } from "@/components/sections/RecoveryTimeline";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const tabs = ["Overview", "What's Included", "Provider", "Reviews", "Location"];
 
@@ -19,7 +22,32 @@ const TreatmentDetail = () => {
   const treatment = treatments.find((t) => t.slug === slug) || treatments[0];
   const [activeTab, setActiveTab] = useState("Overview");
   const [enquirySent, setEnquirySent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { formatPrice } = useCurrency();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleEnquire = async () => {
+    if (!user) {
+      toast.info("Please sign in to send an enquiry");
+      navigate(`/auth?redirect=${encodeURIComponent(`/treatments/${treatment.slug}`)}`);
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("bookings").insert({
+      user_id: user.id,
+      treatment_slug: treatment.slug,
+      treatment_name: treatment.name,
+      provider: treatment.provider,
+      country: treatment.country,
+      price: treatment.price,
+      status: "pending",
+    });
+    setSubmitting(false);
+    if (error) { toast.error(error.message); return; }
+    setEnquirySent(true);
+    toast.success("Enquiry sent! Find it in your dashboard.");
+  };
 
   return (
     <div>
@@ -134,8 +162,12 @@ const TreatmentDetail = () => {
                   <p className="mt-1 text-xs text-muted-foreground">per person · all-inclusive package</p>
                   {!enquirySent ? (
                     <>
-                      <Button className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg" onClick={() => setEnquirySent(true)}>Enquire Now</Button>
-                      <Button variant="outline" className="mt-3 w-full" size="lg" asChild><Link to="/signup">Book Consultation</Link></Button>
+                      <Button className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg" onClick={handleEnquire} disabled={submitting}>
+                        {submitting ? "Sending..." : "Enquire Now"}
+                      </Button>
+                      <Button variant="outline" className="mt-3 w-full" size="lg" asChild>
+                        <Link to={user ? "/dashboard/bookings" : "/auth?mode=signup"}>{user ? "View My Bookings" : "Sign Up to Book"}</Link>
+                      </Button>
                     </>
                   ) : (
                     <div className="mt-6 rounded-lg bg-primary/10 p-4 text-center">
