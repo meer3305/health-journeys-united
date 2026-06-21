@@ -267,9 +267,25 @@ export function Navbar() {
               >
                 <Search className="h-4 w-4" />
               </button>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
-                <Link to="/signup"><UserPlus className="h-3.5 w-3.5 mr-1.5" />Sign Up</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
+                    <Link to="/dashboard"><LayoutDashboard className="h-3.5 w-3.5 mr-1.5" />Dashboard</Link>
+                  </Button>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" onClick={async () => { await signOut(); toast.success("Signed out"); }}>
+                    <LogOut className="h-3.5 w-3.5 mr-1.5" />Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground rounded-full text-[13px]" asChild>
+                    <Link to="/auth">Sign In</Link>
+                  </Button>
+                  <Button size="sm" className="rounded-full text-[13px]" asChild>
+                    <Link to="/auth?mode=signup"><UserPlus className="h-3.5 w-3.5 mr-1.5" />Sign Up</Link>
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Mobile toggle */}
