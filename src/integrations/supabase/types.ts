@@ -97,33 +97,63 @@ export type Database = {
       }
       profiles: {
         Row: {
+          allergies: string | null
           avatar_url: string | null
+          blood_type: string | null
+          budget_range: string | null
+          conditions: string | null
           country: string | null
           created_at: string
+          date_of_birth: string | null
           email: string | null
           full_name: string | null
+          gender: string | null
           id: string
+          medications: string | null
           phone: string | null
+          preferred_destinations: string[] | null
+          travel_companion: string | null
+          treatment_interests: string[] | null
           updated_at: string
         }
         Insert: {
+          allergies?: string | null
           avatar_url?: string | null
+          blood_type?: string | null
+          budget_range?: string | null
+          conditions?: string | null
           country?: string | null
           created_at?: string
+          date_of_birth?: string | null
           email?: string | null
           full_name?: string | null
+          gender?: string | null
           id: string
+          medications?: string | null
           phone?: string | null
+          preferred_destinations?: string[] | null
+          travel_companion?: string | null
+          treatment_interests?: string[] | null
           updated_at?: string
         }
         Update: {
+          allergies?: string | null
           avatar_url?: string | null
+          blood_type?: string | null
+          budget_range?: string | null
+          conditions?: string | null
           country?: string | null
           created_at?: string
+          date_of_birth?: string | null
           email?: string | null
           full_name?: string | null
+          gender?: string | null
           id?: string
+          medications?: string | null
           phone?: string | null
+          preferred_destinations?: string[] | null
+          travel_companion?: string | null
+          treatment_interests?: string[] | null
           updated_at?: string
         }
         Relationships: []
