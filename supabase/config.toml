@@ -1,1 +1,4 @@
 project_id = "oqxyasmbyzpfufptqlpp"
+
+[functions.analyze-medical-record]
+verify_jwt = true
