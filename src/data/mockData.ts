@@ -497,7 +497,23 @@ export const howItWorks = [
   { step: 3, title: "Travel with full support", description: "From flights to aftercare, your dedicated coordinator handles every detail.", icon: "plane" },
 ];
 
-export const specialties = ["All Specialties", "Orthopaedics", "Dentistry", "Fertility", "Cosmetic", "Cardiology", "Oncology", "Ophthalmology"];
+export const specialties = [
+  "All Specialties",
+  "Orthopaedics",
+  "Dentistry",
+  "Fertility",
+  "Cosmetic",
+  "Cardiology",
+  "Oncology",
+  "Ophthalmology",
+  "Bariatric",
+  "Transplant",
+  "Urology",
+  "Dermatology",
+  "Endocrinology",
+  "Regenerative",
+  "Rehabilitation",
+];
 
 export const wellnessTypes = ["All Types", "Stress & Mental Health", "Longevity & Anti-Ageing", "Weight Management", "Mental Wellness", "Detox & Cleansing", "Yoga & Ayurveda", "Fitness & Adventure", "Spa & Recovery"];
 
