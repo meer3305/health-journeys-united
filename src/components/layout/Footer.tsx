@@ -26,6 +26,7 @@ const footerLinks = {
     { label: "Partner With Us", href: "/partners/apply" },
     { label: "Contact", href: "/about" },
     { label: "Careers", href: "/about" },
+    { label: "Tech Stack", href: "/tech-stack" },
   ],
 };
 
