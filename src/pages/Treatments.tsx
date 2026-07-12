@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 const Treatments = () => {
   const [specialty, setSpecialty] = useState("All Specialties");
   const [country, setCountry] = useState("All Destinations");
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [priceRange, setPriceRange] = useState([0, 30000]);
   const [accreditedOnly, setAccreditedOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [matchOpen, setMatchOpen] = useState(false);
@@ -53,7 +53,20 @@ const Treatments = () => {
       <div>
         <h4 className="mb-3 text-sm font-semibold">Destination</h4>
         <div className="space-y-2">
-          {["All Destinations", "Turkey", "Greece", "India", "Thailand", "UAE"].map((c) => (
+          {[
+            "All Destinations",
+            "Turkey",
+            "Greece",
+            "India",
+            "Thailand",
+            "UAE",
+            "South Korea",
+            "Czech Republic",
+            "Mexico",
+            "Singapore",
+            "Hungary",
+            "Portugal",
+          ].map((c) => (
             <button key={c} onClick={() => setCountry(c)}
               className={`block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                 country === c ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted"
@@ -63,7 +76,7 @@ const Treatments = () => {
       </div>
       <div>
         <h4 className="mb-3 text-sm font-semibold">Price Range</h4>
-        <input type="range" min={0} max={10000} step={100} value={priceRange[1]}
+        <input type="range" min={0} max={30000} step={100} value={priceRange[1]}
           onChange={(e) => setPriceRange([0, Number(e.target.value)])} className="w-full accent-primary" />
         <p className="mt-1 text-sm text-muted-foreground">Up to £{priceRange[1].toLocaleString()}</p>
       </div>
@@ -154,7 +167,7 @@ const Treatments = () => {
               {filtered.length === 0 && (
                 <div className="py-20 text-center">
                   <p className="text-lg text-muted-foreground">No treatments match your filters.</p>
-                  <Button variant="outline" className="mt-4" onClick={() => { setSpecialty("All Specialties"); setCountry("All Destinations"); setPriceRange([0, 10000]); setAccreditedOnly(false); }}>
+                  <Button variant="outline" className="mt-4" onClick={() => { setSpecialty("All Specialties"); setCountry("All Destinations"); setPriceRange([0, 30000]); setAccreditedOnly(false); }}>
                     Clear Filters
                   </Button>
                 </div>

@@ -18,8 +18,16 @@ export function QuickSearchModal({ open, onClose }: Props) {
   const [budget, setBudget] = useState("");
   const { formatPrice } = useCurrency();
 
+  const q = query.trim().toLowerCase();
   const filtered = treatments.filter((t) => {
-    const matchQuery = !query || t.name.toLowerCase().includes(query.toLowerCase()) || t.specialty.toLowerCase().includes(query.toLowerCase());
+    const matchQuery =
+      !q ||
+      t.name.toLowerCase().includes(q) ||
+      t.specialty.toLowerCase().includes(q) ||
+      t.provider.toLowerCase().includes(q) ||
+      t.city.toLowerCase().includes(q) ||
+      t.country.toLowerCase().includes(q) ||
+      t.description.toLowerCase().includes(q);
     const matchCountry = !country || t.country === country;
     const matchBudget = !budget ||
       (budget === "low" && t.price < 2000) ||
@@ -67,11 +75,9 @@ export function QuickSearchModal({ open, onClose }: Props) {
               className="rounded-xl border border-border bg-muted/30 px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 [&>option]:text-foreground [&>option]:bg-background"
             >
               <option value="">All countries</option>
-              <option value="Turkey">Turkey</option>
-              <option value="Thailand">Thailand</option>
-              <option value="India">India</option>
-              <option value="Greece">Greece</option>
-              <option value="UAE">UAE</option>
+              {Array.from(new Set(treatments.map((t) => t.country))).sort().map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
             </select>
             <select
               value={budget}

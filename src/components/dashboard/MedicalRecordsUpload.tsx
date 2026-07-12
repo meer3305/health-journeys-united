@@ -59,6 +59,13 @@ export function MedicalRecordsUpload() {
 
   useEffect(() => { load(); }, [user]);
 
+  // Auto-expand the most recent completed record so details are visible without clicking
+  useEffect(() => {
+    if (openId) return;
+    const firstDone = records.find((r) => r.status === "complete");
+    if (firstDone) setOpenId(firstDone.id);
+  }, [records, openId]);
+
   // Realtime so the row flips from processing → complete automatically
   useEffect(() => {
     if (!user) return;
