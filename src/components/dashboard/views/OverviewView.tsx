@@ -8,6 +8,7 @@ import { bookings } from "@/data/dashboardData";
 import { Sparkles, Clock, TrendingUp, Calendar, Heart, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -17,6 +18,9 @@ const fadeUp = {
 
 export function OverviewView() {
   const upcomingBookings = bookings.filter((b) => b.status === "confirmed" || b.status === "pending");
+  const { user } = useAuth();
+  const fullName = (user?.user_metadata as { full_name?: string })?.full_name || user?.email?.split("@")[0] || "there";
+  const firstName = fullName.split(" ")[0];
 
   return (
     <>
@@ -24,7 +28,7 @@ export function OverviewView() {
       <motion.div {...fadeUp} className="rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-teal-600 p-6 sm:p-8 text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
         <div className="relative">
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold">Welcome back, James! 👋</h1>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold">Welcome back, {firstName}! 👋</h1>
           <p className="mt-2 text-sm sm:text-base opacity-85">Your health journey is 60% complete. Let's keep going.</p>
           <div className="mt-5 flex flex-wrap gap-4">
             {[

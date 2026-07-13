@@ -32,8 +32,36 @@ const Treatments = () => {
 
   const handleMatchResults = (filters: Record<string, string>) => {
     setMode("browse");
+    const goalMap: Record<string, string> = {
+      "Dental": "Dentistry",
+      "Cosmetic Surgery": "Cosmetic",
+      "Orthopaedics": "Orthopaedics",
+      "Fertility / IVF": "Fertility",
+      "Cardiac": "Cardiology",
+      "Eye Surgery": "Ophthalmology",
+    };
+    const budgetMap: Record<string, number> = {
+      "Under £1,000": 1000,
+      "£1,000 – £3,000": 3000,
+      "£3,000 – £5,000": 5000,
+      "£5,000 – £10,000": 10000,
+      "£10,000+": 30000,
+      "Flexible": 30000,
+    };
+    if (filters.goal && goalMap[filters.goal]) {
+      setSpecialty(goalMap[filters.goal]);
+    } else {
+      setSpecialty("All Specialties");
+    }
     if (filters.destination && filters.destination !== "No preference") {
       setCountry(filters.destination);
+    } else {
+      setCountry("All Destinations");
+    }
+    if (filters.budget && budgetMap[filters.budget] !== undefined) {
+      setPriceRange([0, budgetMap[filters.budget]]);
+    } else {
+      setPriceRange([0, 30000]);
     }
   };
 
