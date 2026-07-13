@@ -32,6 +32,31 @@ const Wellness = () => {
 
   const handleMatchResults = (filters: Record<string, string>) => {
     setMode("browse");
+    const goalMap: Record<string, string> = {
+      "Stress relief & relaxation": "Stress & Mental Health",
+      "Weight management": "Weight Management",
+      "Mental health & mindfulness": "Mental Wellness",
+      "Detox & cleansing": "Detox & Cleansing",
+      "Fitness & adventure": "Fitness & Adventure",
+      "Anti-ageing & longevity": "Longevity & Anti-Ageing",
+      "Spiritual healing": "Yoga & Ayurveda",
+    };
+    const styleMap: Record<string, string> = {
+      "🧘 Retreat (spa & sanctuary)": "retreat",
+      "🏔️ Outdoor & adventure": "outdoor",
+      "🏥 Clinical & medical": "indoor",
+      "🌿 Holistic & spiritual": "holistic",
+    };
+    const budgetMap: Record<string, number> = {
+      "Under £1,500": 1500,
+      "£1,500 – £2,500": 2500,
+      "£2,500 – £4,000": 4000,
+      "£4,000+": 5000,
+      "Flexible": 5000,
+    };
+    setType(filters.goal && goalMap[filters.goal] ? goalMap[filters.goal] : "All Types");
+    setCategory(filters.style && styleMap[filters.style] ? styleMap[filters.style] : "all");
+    setPriceRange([0, filters.budget && budgetMap[filters.budget] !== undefined ? budgetMap[filters.budget] : 5000]);
   };
 
   const FilterSidebar = () => (
