@@ -1,0 +1,381 @@
+{
+ "treatments": [
+  {
+   "slug": "knee-replacement-istanbul",
+   "name": "Knee Replacement",
+   "provider": "Istanbul Health Centre",
+   "country": "Turkey",
+   "city": "Istanbul",
+   "price": 3200,
+   "currency": "£",
+   "specialty": "Orthopaedics",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "dental-implants-ankara",
+   "name": "Dental Implants",
+   "provider": "Ankara Smile Clinic",
+   "country": "Turkey",
+   "city": "Ankara",
+   "price": 800,
+   "currency": "£",
+   "specialty": "Dentistry",
+   "duration": "3–5 days"
+  },
+  {
+   "slug": "ivf-athens",
+   "name": "IVF Treatment",
+   "provider": "Athens Fertility Centre",
+   "country": "Greece",
+   "city": "Athens",
+   "price": 2500,
+   "currency": "£",
+   "specialty": "Fertility",
+   "duration": "14–21 days"
+  },
+  {
+   "slug": "hair-transplant-istanbul",
+   "name": "Hair Transplant",
+   "provider": "MedHair Istanbul",
+   "country": "Turkey",
+   "city": "Istanbul",
+   "price": 1500,
+   "currency": "£",
+   "specialty": "Cosmetic",
+   "duration": "2–3 days"
+  },
+  {
+   "slug": "cardiac-bypass-delhi",
+   "name": "Cardiac Bypass",
+   "provider": "Apollo Hospital Delhi",
+   "country": "India",
+   "city": "Delhi",
+   "price": 8000,
+   "currency": "£",
+   "specialty": "Cardiology",
+   "duration": "10–14 days"
+  },
+  {
+   "slug": "oncology-consultation-bangkok",
+   "name": "Oncology Consultation",
+   "provider": "Bangkok Cancer Centre",
+   "country": "Thailand",
+   "city": "Bangkok",
+   "price": 1200,
+   "currency": "£",
+   "specialty": "Oncology",
+   "duration": "3–5 days"
+  },
+  {
+   "slug": "rhinoplasty-istanbul",
+   "name": "Rhinoplasty",
+   "provider": "Estetik Istanbul",
+   "country": "Turkey",
+   "city": "Istanbul",
+   "price": 2800,
+   "currency": "£",
+   "specialty": "Cosmetic",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "hip-replacement-mumbai",
+   "name": "Hip Replacement",
+   "provider": "Fortis Hospital Mumbai",
+   "country": "India",
+   "city": "Mumbai",
+   "price": 4500,
+   "currency": "£",
+   "specialty": "Orthopaedics",
+   "duration": "7–10 days"
+  },
+  {
+   "slug": "lasik-dubai",
+   "name": "LASIK Eye Surgery",
+   "provider": "Moorfields Eye Hospital Dubai",
+   "country": "UAE",
+   "city": "Dubai",
+   "price": 1800,
+   "currency": "£",
+   "specialty": "Ophthalmology",
+   "duration": "1–2 days"
+  },
+  {
+   "slug": "dental-veneers-antalya",
+   "name": "Dental Veneers",
+   "provider": "Antalya Dental Studio",
+   "country": "Turkey",
+   "city": "Antalya",
+   "price": 2200,
+   "currency": "£",
+   "specialty": "Dentistry",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "gastric-sleeve-istanbul",
+   "name": "Gastric Sleeve Surgery",
+   "provider": "Bariatric Center Istanbul",
+   "country": "Turkey",
+   "city": "Istanbul",
+   "price": 4200,
+   "currency": "£",
+   "specialty": "Bariatric",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "spinal-fusion-seoul",
+   "name": "Spinal Fusion Surgery",
+   "provider": "Seoul Spine Hospital",
+   "country": "South Korea",
+   "city": "Seoul",
+   "price": 12000,
+   "currency": "£",
+   "specialty": "Orthopaedics",
+   "duration": "10–14 days"
+  },
+  {
+   "slug": "liver-transplant-delhi",
+   "name": "Liver Transplant",
+   "provider": "Max Healthcare Delhi",
+   "country": "India",
+   "city": "Delhi",
+   "price": 28000,
+   "currency": "£",
+   "specialty": "Transplant",
+   "duration": "30–45 days"
+  },
+  {
+   "slug": "ivf-prague",
+   "name": "IVF with PGT",
+   "provider": "Prague Fertility Institute",
+   "country": "Czech Republic",
+   "city": "Prague",
+   "price": 4800,
+   "currency": "£",
+   "specialty": "Fertility",
+   "duration": "14–18 days"
+  },
+  {
+   "slug": "breast-augmentation-bangkok",
+   "name": "Breast Augmentation",
+   "provider": "Bangkok Plastic Surgery Clinic",
+   "country": "Thailand",
+   "city": "Bangkok",
+   "price": 3400,
+   "currency": "£",
+   "specialty": "Cosmetic",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "tummy-tuck-mexico-city",
+   "name": "Tummy Tuck",
+   "provider": "Mexico City Aesthetic Center",
+   "country": "Mexico",
+   "city": "Mexico City",
+   "price": 5200,
+   "currency": "£",
+   "specialty": "Cosmetic",
+   "duration": "7–10 days"
+  },
+  {
+   "slug": "cataract-surgery-singapore",
+   "name": "Cataract Surgery",
+   "provider": "Singapore Eye Centre",
+   "country": "Singapore",
+   "city": "Singapore",
+   "price": 2900,
+   "currency": "£",
+   "specialty": "Ophthalmology",
+   "duration": "3–5 days"
+  },
+  {
+   "slug": "knee-arthroscopy-budapest",
+   "name": "Knee Arthroscopy",
+   "provider": "Budapest Sports Medicine",
+   "country": "Hungary",
+   "city": "Budapest",
+   "price": 2100,
+   "currency": "£",
+   "specialty": "Orthopaedics",
+   "duration": "3–5 days"
+  },
+  {
+   "slug": "all-on-4-dental-budapest",
+   "name": "All-on-4 Dental Implants",
+   "provider": "Budapest Dental Clinic",
+   "country": "Hungary",
+   "city": "Budapest",
+   "price": 5800,
+   "currency": "£",
+   "specialty": "Dentistry",
+   "duration": "5–7 days"
+  },
+  {
+   "slug": "weight-loss-balloon-istanbul",
+   "name": "Gastric Balloon",
+   "provider": "Istanbul Weight Loss Center",
+   "country": "Turkey",
+   "city": "Istanbul",
+   "price": 2400,
+   "currency": "£",
+   "specialty": "Bariatric",
+   "duration": "2–3 days"
+  },
+  {
+   "slug": "kidney-stone-treatment-mumbai",
+   "name": "Kidney Stone Treatment",
+   "provider": "Fortis Kidney Institute",
+   "country": "India",
+   "city": "Mumbai",
+   "price": 1800,
+   "currency": "£",
+   "specialty": "Urology",
+   "duration": "3–4 days"
+  },
+  {
+   "slug": "skin-resurfacing-seoul",
+   "name": "Laser Skin Resurfacing",
+   "provider": "Seoul Dermatology Clinic",
+   "country": "South Korea",
+   "city": "Seoul",
+   "price": 1600,
+   "currency": "£",
+   "specialty": "Dermatology",
+   "duration": "4–6 days"
+  },
+  {
+   "slug": "thyroid-surgery-bangkok",
+   "name": "Thyroid Surgery",
+   "provider": "Bumrungrad International",
+   "country": "Thailand",
+   "city": "Bangkok",
+   "price": 5400,
+   "currency": "£",
+   "specialty": "Endocrinology",
+   "duration": "7–10 days"
+  },
+  {
+   "slug": "stem-cell-therapy-mexico",
+   "name": "Stem Cell Therapy",
+   "provider": "Cancun Regenerative Clinic",
+   "country": "Mexico",
+   "city": "Cancun",
+   "price": 8500,
+   "currency": "£",
+   "specialty": "Regenerative",
+   "duration": "7–10 days"
+  },
+  {
+   "slug": "physiotherapy-program-portugal",
+   "name": "Sports Rehabilitation Program",
+   "provider": "Lisbon Sports Med",
+   "country": "Portugal",
+   "city": "Lisbon",
+   "price": 2200,
+   "currency": "£",
+   "specialty": "Rehabilitation",
+   "duration": "14 days"
+  }
+ ],
+ "wellness": [
+  {
+   "slug": "stress-burnout-retreat-bali",
+   "name": "Stress & Burnout Retreat",
+   "location": "Ubud, Bali",
+   "country": "Indonesia",
+   "duration": "7 days",
+   "price": 1800,
+   "currency": "£",
+   "type": "Stress & Mental Health"
+  },
+  {
+   "slug": "longevity-programme-switzerland",
+   "name": "Longevity Programme",
+   "location": "Zurich, Switzerland",
+   "country": "Switzerland",
+   "duration": "5 days",
+   "price": 3500,
+   "currency": "£",
+   "type": "Longevity & Anti-Ageing"
+  },
+  {
+   "slug": "weight-management-thailand",
+   "name": "Weight Management",
+   "location": "Koh Samui, Thailand",
+   "country": "Thailand",
+   "duration": "14 days",
+   "price": 2200,
+   "currency": "£",
+   "type": "Weight Management"
+  },
+  {
+   "slug": "mental-wellness-retreat-portugal",
+   "name": "Mental Wellness Retreat",
+   "location": "Algarve, Portugal",
+   "country": "Portugal",
+   "duration": "10 days",
+   "price": 2800,
+   "currency": "£",
+   "type": "Mental Wellness"
+  },
+  {
+   "slug": "detox-retreat-austria",
+   "name": "Medical Detox Retreat",
+   "location": "Tyrol, Austria",
+   "country": "Austria",
+   "duration": "7 days",
+   "price": 2400,
+   "currency": "£",
+   "type": "Detox & Cleansing"
+  },
+  {
+   "slug": "yoga-ayurveda-india",
+   "name": "Yoga & Ayurveda Immersion",
+   "location": "Kerala, India",
+   "country": "India",
+   "duration": "12 days",
+   "price": 1600,
+   "currency": "£",
+   "type": "Yoga & Ayurveda"
+  },
+  {
+   "slug": "adventure-fitness-costa-rica",
+   "name": "Adventure Fitness Camp",
+   "location": "Guanacaste, Costa Rica",
+   "country": "Costa Rica",
+   "duration": "10 days",
+   "price": 2600,
+   "currency": "£",
+   "type": "Fitness & Adventure"
+  },
+  {
+   "slug": "spa-thermal-budapest",
+   "name": "Thermal Spa Recovery",
+   "location": "Budapest, Hungary",
+   "country": "Hungary",
+   "duration": "5 days",
+   "price": 1400,
+   "currency": "£",
+   "type": "Spa & Recovery"
+  },
+  {
+   "slug": "mindfulness-meditation-japan",
+   "name": "Zen Meditation Retreat",
+   "location": "Kyoto, Japan",
+   "country": "Japan",
+   "duration": "7 days",
+   "price": 3200,
+   "currency": "£",
+   "type": "Mental Wellness"
+  },
+  {
+   "slug": "digital-detox-iceland",
+   "name": "Digital Detox & Nature",
+   "location": "Reykjavik, Iceland",
+   "country": "Iceland",
+   "duration": "6 days",
+   "price": 2900,
+   "currency": "£",
+   "type": "Detox & Cleansing"
+  }
+ ]
+}
