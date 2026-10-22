@@ -11,7 +11,7 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY') ?? Deno.env.get('SUPABASE_PUBLISHABLE_KEY')!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-const MODEL = 'google/gemini-2.5-flash';
+const MODEL = 'google/gemini-3.8-flash';
 
 const SYSTEM_PROMPT = `You are Hayat, the warm, thoughtful care concierge for TrawellCare — a premium medical travel & wellness platform. You speak in clear, friendly English, use short paragraphs, and a heart emoji sparingly. You are NOT a doctor: never diagnose, never give medical advice beyond general guidance, and add a light disclaimer when discussing medical specifics.
 
