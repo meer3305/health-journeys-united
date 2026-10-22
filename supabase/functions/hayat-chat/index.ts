@@ -94,6 +94,7 @@ async function callGateway(messages: unknown[]) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Lovable-API-Key': LOVABLE_API_KEY },
     body: JSON.stringify({ model: MODEL, messages, tools: TOOLS, tool_choice: 'auto', max_tokens: 1200 }),
+    signal: AbortSignal.timeout(60_000),
   });
   if (!res.ok) {
     const t = await res.text();
