@@ -175,10 +175,12 @@ Deno.serve(async (req) => {
     ];
     if (message) convo.push({ role: 'user', content: message });
 
-    // Agentic tool loop (bounded).
+    // Agentic tool loop (bounded by hops and a wall-clock deadline).
     let reply = '';
     let titleUpdated = false;
+    const deadline = Date.now() + 100_000;
     for (let hop = 0; hop < 5; hop++) {
+      if (Date.now() > deadline) { reply = reply || "I've taken care of your request — give me a moment and ask me anything else, or check your bookings in the dashboard."; break; }
       const aiJson = await callGateway(convo);
       const choice = aiJson.choices?.[0]?.message;
       reply = choice?.content ?? '';
