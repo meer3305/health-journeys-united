@@ -68,7 +68,7 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
 const About = () => {
   return (
     <div>
-      <HeroSection title="About MedXTrawell" subtitle="We're on a mission to make world-class healthcare accessible to everyone, everywhere." compact />
+      <HeroSection title="About TrawellCare" subtitle="We're on a mission to make world-class healthcare accessible to everyone, everywhere." compact />
 
       {/* Mission */}
       <section className="py-28 relative overflow-hidden">
@@ -84,7 +84,7 @@ const About = () => {
             <Glass3DCard className="p-10">
               <h2 className="font-serif text-3xl font-bold">Our Mission</h2>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-                MedXTrawell was founded on a simple belief: everyone deserves access to the best healthcare,
+                TrawellCare was founded on a simple belief: everyone deserves access to the best healthcare,
                 no matter where they live. We connect patients with verified, accredited hospitals and wellness
                 providers across the globe — making medical travel safe, transparent, and affordable.
               </p>
@@ -162,7 +162,7 @@ const About = () => {
           >
             <h2 className="font-serif text-3xl font-bold text-white drop-shadow-lg">Trust & Accreditation</h2>
             <p className="mx-auto mt-4 max-w-2xl text-white/60">
-              All providers on MedXTrawell undergo rigorous vetting. We only work with JCI-accredited,
+              All providers on TrawellCare undergo rigorous vetting. We only work with JCI-accredited,
               ISO-certified, or nationally recognised healthcare facilities.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

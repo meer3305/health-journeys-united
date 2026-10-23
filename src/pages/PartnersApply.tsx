@@ -40,9 +40,9 @@ const whyPartner = [
 ];
 
 const testimonials = [
-  { quote: "Since joining MedXTrawell, we've seen a 40% increase in international patient inquiries. The platform handles everything from initial contact to post-treatment follow-up.", name: "Dr. Mehmet Kaya", role: "Medical Director", org: "Istanbul Health Centre" },
+  { quote: "Since joining TrawellCare, we've seen a 40% increase in international patient inquiries. The platform handles everything from initial contact to post-treatment follow-up.", name: "Dr. Mehmet Kaya", role: "Medical Director", org: "Istanbul Health Centre" },
   { quote: "The dedicated account manager truly understands our needs. Our profile conversion rate has doubled since we optimised it with their team.", name: "Dr. Priya Sharma", role: "Chief of Surgery", org: "Apollo Medical Delhi" },
-  { quote: "What sets MedXTrawell apart is their patient coordination. Patients arrive prepared and confident, which leads to better outcomes for everyone.", name: "Dr. Somchai Lee", role: "Director", org: "Bangkok International Hospital" },
+  { quote: "What sets TrawellCare apart is their patient coordination. Patients arrive prepared and confident, which leads to better outcomes for everyone.", name: "Dr. Somchai Lee", role: "Director", org: "Bangkok International Hospital" },
 ];
 
 function Glass3DCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -111,7 +111,7 @@ const PartnersApply = () => {
               Grow Your Practice. <br />Reach Global Patients.
             </h1>
             <p className="mt-6 text-lg text-white/80 leading-relaxed sm:text-xl">
-              Join 500+ world-class hospitals and clinics connecting with thousands of international patients through MedXTrawell.
+              Join 500+ world-class hospitals and clinics connecting with thousands of international patients through TrawellCare.
             </p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
               <Button

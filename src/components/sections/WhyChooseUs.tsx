@@ -51,7 +51,7 @@ export function WhyChooseUs() {
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/5" />
       <Container className="relative">
         <SectionHeader
-          title="Why Choose MedXTrawell?"
+          title="Why Choose TrawellCare?"
           subtitle="Trusted by thousands of patients worldwide for safe, affordable, world-class healthcare"
         />
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

@@ -176,7 +176,7 @@ export function Navbar() {
                 <span className="font-serif text-lg font-bold text-primary-foreground">M</span>
               </motion.div>
               <span className="font-serif text-xl font-bold text-foreground tracking-tight hidden sm:block">
-                MedXTrawell
+                TrawellCare
               </span>
             </Link>
 

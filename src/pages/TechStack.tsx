@@ -123,7 +123,7 @@ const features = [
     title: "Animations & 3D Effects",
     stack: ["Framer Motion", "CSS transforms", "pointer events"],
     logic: [
-      "The MedXTrawell membership card uses pointer position to compute rotateX/rotateY on a `motion.div`, with a holographic gradient tied to the same values.",
+      "The TrawellCare membership card uses pointer position to compute rotateX/rotateY on a `motion.div`, with a holographic gradient tied to the same values.",
       "The navbar 'spotlight pill' animates its `left`/`width` between hovered links using a spring transition.",
       "Page transitions use `AnimatePresence` keyed on `location.pathname`.",
     ],
@@ -141,7 +141,7 @@ const dataFlow = [
 
 export default function TechStack() {
   useEffect(() => {
-    document.title = "Tech Stack & Architecture | MedXTrawell";
+    document.title = "Tech Stack & Architecture | TrawellCare";
   }, []);
 
   return (
@@ -160,7 +160,7 @@ export default function TechStack() {
                 Under the hood
               </Badge>
               <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-                How MedXTrawell is Built
+                How TrawellCare is Built
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 A transparent breakdown of the technology, logic, and architecture powering

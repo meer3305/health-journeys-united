@@ -17,7 +17,7 @@ const stories = [
     country: "Australia 🇦🇺",
     treatment: "Hair Transplant in Turkey",
     saved: "£5,500",
-    quote: "I was nervous about travelling for surgery, but the MedXTrawell team made it seamless. The results exceeded my expectations and the savings were incredible.",
+    quote: "I was nervous about travelling for surgery, but the TrawellCare team made it seamless. The results exceeded my expectations and the savings were incredible.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
     rating: 5,
   },

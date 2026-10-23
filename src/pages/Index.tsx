@@ -1,6 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/sections/SectionHeader";
-import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
+import { TrawellCareCard3D } from "@/components/TrawellCareCard3D";
 import { SavingsComparison } from "@/components/sections/SavingsComparison";
 import { PatientStories } from "@/components/sections/PatientStories";
 import { PatientJourney } from "@/components/sections/PatientJourney";
@@ -182,7 +182,7 @@ const Index = () => {
       {/* Why Choose Us */}
       <WhyChooseUs />
 
-      {/* MedXTrawell Card + BNPL — right after Why Choose Us */}
+      {/* TrawellCare Card + BNPL — right after Why Choose Us */}
       <section className="py-20 relative overflow-hidden bg-muted/30">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
         <Container className="relative">
@@ -192,14 +192,14 @@ const Index = () => {
               <CreditCard className="h-4 w-4" /> Exclusive Member Benefits
             </motion.span>
             <motion.h2 initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-              className="mt-5 font-serif text-3xl font-bold sm:text-4xl">Your MedXTrawell Card</motion.h2>
+              className="mt-5 font-serif text-3xl font-bold sm:text-4xl">Your TrawellCare Card</motion.h2>
             <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
               className="mt-3 mx-auto max-w-2xl text-muted-foreground leading-relaxed">One card for your entire medical travel journey — with built-in Buy Now, Pay Later.</motion.p>
           </div>
           <div className="grid gap-12 items-center lg:grid-cols-2">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }} className="flex justify-center">
               <div className="w-full max-w-md">
-                <MedXTrawellCard3D />
+                <TrawellCareCard3D />
                 <p className="mt-3 text-center text-xs text-muted-foreground">✦ Hover over the card to see the 3D effect</p>
               </div>
             </motion.div>

@@ -1,5 +1,5 @@
-import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
+import { TrawellCareCard3D } from "@/components/TrawellCareCard3D";
 
 export function CareCardWidget() {
-  return <MedXTrawellCard3D holderName="JAMES WILSON" compact />;
+  return <TrawellCareCard3D holderName="JAMES WILSON" compact />;
 }
