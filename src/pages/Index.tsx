@@ -130,8 +130,7 @@ const Index = () => {
             {/* CTA buttons */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.45 }} className="mt-6 flex flex-wrap gap-3">
               <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
-                <Button size="lg" className="gap-2 shadow-lg transition-all border border-white/20"
-                  style={{ background: "linear-gradient(135deg, hsl(187 92% 53%) 0%, hsl(174 78% 26%) 100%)", color: "white", boxShadow: "0 0 20px rgba(34,211,238,0.3)" }}
+                <Button size="lg" className="gap-2 shadow-lg transition-all border border-white/20 bg-primary hover:bg-primary/90 text-primary-foreground"
                   onClick={() => setConciergeOpen(true)}>
                   <Heart className="h-4 w-4" /> Start Your Health Journey
                 </Button>
@@ -139,7 +138,7 @@ const Index = () => {
               <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
                 <Button size="lg" className="gap-2 shadow-lg transition-all border border-white/20"
                   style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", color: "white" }}
-                  onClick={() => setConciergeOpen(true)}>
+                  onClick={() => window.dispatchEvent(new CustomEvent("open-hayat"))}>
                   <Sparkles className="h-4 w-4" /> AI Suggestions
                 </Button>
               </motion.div>
@@ -149,6 +148,15 @@ const Index = () => {
                   <Link to="/wellness">Explore Wellness</Link>
                 </Button>
               </motion.div>
+            </motion.div>
+
+            {/* Specialty chips */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.55 }} className="mt-8 flex flex-wrap gap-2">
+              {["Orthopaedic", "Dental", "Fertility", "Cosmetic", "Cardiology", "Wellness"].map((s) => (
+                <Link key={s} to="/treatments" className="rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition-colors hover:bg-white/20">
+                  {s}
+                </Link>
+              ))}
             </motion.div>
           </motion.div>
 
@@ -194,7 +202,7 @@ const Index = () => {
             <motion.h2 initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
               className="mt-5 font-serif text-3xl font-bold sm:text-4xl">Your TrawellCare Card</motion.h2>
             <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
-              className="mt-3 mx-auto max-w-2xl text-muted-foreground leading-relaxed">One card for your entire medical travel journey — with built-in Buy Now, Pay Later.</motion.p>
+              className="mt-3 mx-auto max-w-2xl text-muted-foreground leading-relaxed">One card for your entire medical travel journey — records, bookings and member benefits, everywhere you go.</motion.p>
           </div>
           <div className="grid gap-12 items-center lg:grid-cols-2">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }} className="flex justify-center">
@@ -213,20 +221,7 @@ const Index = () => {
                   </motion.li>
                 ))}
               </ul>
-              <Glass3DCard className="mt-6 p-5">
-                <div className="flex items-center gap-2 mb-3"><Banknote className="h-5 w-5 text-accent" /><h4 className="font-serif text-lg font-semibold">Buy Now, Pay Later</h4></div>
-                <p className="text-sm text-muted-foreground mb-3">Split any treatment into affordable monthly payments.</p>
-                <div className="space-y-2">
-                  {[
-                    { icon: ShieldCheck, text: "No credit check — instant approval" },
-                    { icon: Clock, text: "3, 6, or 12 month payment plans" },
-                    { icon: Banknote, text: "0% interest on all plans" },
-                  ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-3 text-sm"><item.icon className="h-4 w-4 text-primary shrink-0" /><span>{item.text}</span></div>
-                  ))}
-                </div>
-              </Glass3DCard>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-5">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-6">
                 <Button size="lg" className="gap-2 bg-primary hover:bg-primary/90 shadow-lg" asChild>
                   <Link to="/signup">Get Your Free Card <ArrowRight className="h-4 w-4" /></Link>
                 </Button>
