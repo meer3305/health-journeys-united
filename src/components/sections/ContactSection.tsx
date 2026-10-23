@@ -56,7 +56,7 @@ export function ContactSection() {
             </span>
             <h2 className="mt-5 font-serif text-3xl font-bold sm:text-4xl">Have a question? We're here to help.</h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Send us a message and a dedicated MedXTrawell care coordinator will reach out within 24 hours
+              Send us a message and a dedicated TrawellCare care coordinator will reach out within 24 hours
               with personalised treatment options and a transparent cost estimate.
             </p>
             <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">

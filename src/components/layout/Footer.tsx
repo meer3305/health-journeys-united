@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Logo } from "@/components/brand/Logo";
 
 const footerLinks = {
   Treatments: [
@@ -41,10 +42,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl shadow-md bg-primary">
-                <span className="font-serif text-lg font-bold text-primary-foreground">M</span>
-              </div>
-              <span className="font-serif text-xl font-bold text-white">MedXTrawell</span>
+              <Logo className="text-xl" light />
             </Link>
             <p className="mt-4 text-sm text-white/50 leading-relaxed">
               World-class healthcare, wherever you are. Connecting patients with verified providers worldwide.
@@ -78,7 +76,7 @@ export function Footer() {
         </div>
         <div className="mt-12 border-t border-white/8 pt-8">
           <p className="text-center text-xs text-white/25">
-            © {new Date().getFullYear()} MedXTrawell. All rights reserved.
+            © {new Date().getFullYear()} TrawellCare. All rights reserved.
           </p>
         </div>
       </div>

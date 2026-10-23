@@ -56,7 +56,7 @@ export default function Auth() {
           } else toast.error(error.message);
           return;
         }
-        toast.success("Welcome to MedXTrawell!");
+        toast.success("Welcome to TrawellCare!");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email: emailResult.data,
@@ -84,7 +84,7 @@ export default function Auth() {
             <p className="mt-2 text-center text-sm text-muted-foreground">
               {mode === "login"
                 ? "Sign in to access your dashboard"
-                : "Start your health journey with MedXTrawell"}
+                : "Start your health journey with TrawellCare"}
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-4">

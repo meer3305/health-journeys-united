@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MedXTrawellCard3D } from "@/components/MedXTrawellCard3D";
+import { TrawellCareCard3D } from "@/components/TrawellCareCard3D";
 import { virtualCardFeatures } from "@/data/mockData";
 import { Check, Shield, CreditCard } from "lucide-react";
 
@@ -12,7 +12,7 @@ export function CareCardView() {
       </div>
 
       <div className="flex justify-center">
-        <MedXTrawellCard3D holderName="JAMES WILSON" />
+        <TrawellCareCard3D holderName="JAMES WILSON" />
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
