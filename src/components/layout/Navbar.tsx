@@ -7,6 +7,7 @@ import {
   MessageSquare, Info, UserPlus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/brand/Logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCurrency, currencies } from "@/contexts/CurrencyContext";
 import { QuickSearchModal } from "@/components/QuickSearchModal";

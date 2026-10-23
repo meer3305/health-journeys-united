@@ -176,11 +176,6 @@ const TreatmentDetail = () => {
                       <p className="mt-1 text-xs text-muted-foreground">A coordinator will contact you within 24 hours.</p>
                     </div>
                   )}
-                  <div className="mt-6 rounded-lg border border-border p-4">
-                    <p className="text-xs font-medium text-muted-foreground">BNPL Available</p>
-                    <p className="mt-1 text-sm">Pay in <span className="font-semibold">4 instalments</span> of {formatPrice(Math.round(treatment.price / 4))}/month</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Interest-free · No credit check</p>
-                  </div>
                   <div className="mt-4 space-y-2 text-xs text-muted-foreground">
                     <p>✓ Free cancellation up to 14 days before</p>
                     <p>✓ No hidden fees</p>
