@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HayatPanel } from "./HayatPanel";
 import mascot from "@/assets/hayat-mascot.asset.json";
 
 export function FloatingChatButton() {
   const [open, setOpen] = useState(false);
+
+  // Open Hayat from anywhere (e.g. the hero "AI Suggestions" button)
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-hayat", handler);
+    return () => window.removeEventListener("open-hayat", handler);
+  }, []);
 
   return (
     <>
