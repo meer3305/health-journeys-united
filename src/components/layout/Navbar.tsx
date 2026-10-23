@@ -159,25 +159,18 @@ export function Navbar() {
             border: "1px solid rgba(255,255,255,0.4)",
           }}
         >
-          {/* Neon accent line */}
+          {/* Brand accent line */}
           <div
             className="absolute bottom-0 left-6 right-6 h-px rounded-full"
-            style={{ background: "linear-gradient(90deg, transparent, hsl(187 92% 53% / 0.3), transparent)" }}
+            style={{ background: "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent)" }}
           />
 
           <div className="flex h-16 items-center px-5">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
-              <motion.div
-                whileHover={{ scale: 1.08 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl shadow-md border border-white/30 bg-primary"
-              >
-                <span className="font-serif text-lg font-bold text-primary-foreground">M</span>
+              <motion.div whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}>
+                <Logo className="text-xl" />
               </motion.div>
-              <span className="font-serif text-xl font-bold text-foreground tracking-tight hidden sm:block">
-                TrawellCare
-              </span>
             </Link>
 
             {/* Desktop nav center */}
