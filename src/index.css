@@ -6,95 +6,100 @@
 
 @layer base {
   :root {
-    /* TrawellCare brand: warm cream, charcoal, caramel tan, medical red */
-    --background: 38 33% 97%;
-    --foreground: 24 10% 15%;
+    /* trawellcare official brand palette (Brand Guidelines p.18)
+       Deep Charcoal #24231F · Warm Beige #B7A58A · Warm Ivory #F5F1E9
+       Pure White #FFFFFF · Deep Earth #3C3932 · Muted Sage #89917D */
+    --background: 40 37% 94%;
+    --foreground: 48 7% 13%;
 
-    --card: 40 40% 99%;
-    --card-foreground: 24 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 48 7% 13%;
 
-    --popover: 40 40% 99%;
-    --popover-foreground: 24 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 48 7% 13%;
 
-    --primary: 33 55% 44%;
-    --primary-foreground: 40 40% 98%;
+    --primary: 48 7% 13%;
+    --primary-foreground: 40 37% 94%;
 
-    --secondary: 26 12% 20%;
-    --secondary-foreground: 40 40% 98%;
+    --secondary: 42 9% 22%;
+    --secondary-foreground: 40 37% 94%;
 
-    --muted: 36 22% 92%;
-    --muted-foreground: 26 8% 42%;
+    --muted: 40 22% 90%;
+    --muted-foreground: 40 6% 40%;
 
-    --accent: 4 74% 53%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 36 24% 63%;
+    --accent-foreground: 48 7% 13%;
 
-    --neon-green: 150 40% 38%;
+    --sage: 84 8% 53%;
+    --sage-foreground: 0 0% 100%;
+
+    --neon-green: 84 8% 45%;
     --neon-green-foreground: 0 0% 100%;
 
     --destructive: 0 72% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 34 18% 88%;
-    --input: 34 18% 88%;
-    --ring: 33 55% 44%;
+    --border: 40 15% 86%;
+    --input: 40 15% 86%;
+    --ring: 36 24% 50%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 26 12% 16%;
-    --sidebar-foreground: 40 33% 98%;
-    --sidebar-primary: 33 55% 46%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 26 10% 22%;
-    --sidebar-accent-foreground: 40 33% 98%;
-    --sidebar-border: 30 10% 26%;
-    --sidebar-ring: 33 55% 46%;
+    --sidebar-background: 42 9% 18%;
+    --sidebar-foreground: 40 37% 94%;
+    --sidebar-primary: 36 24% 63%;
+    --sidebar-primary-foreground: 48 7% 13%;
+    --sidebar-accent: 42 9% 26%;
+    --sidebar-accent-foreground: 40 37% 94%;
+    --sidebar-border: 40 8% 30%;
+    --sidebar-ring: 36 24% 63%;
 
     /* Custom tokens (repointed to brand) */
-    --gold: 36 50% 55%;
-    --gold-light: 38 45% 92%;
-    --teal-light: 38 30% 96%;
-    --teal-dark: 26 14% 14%;
-    --cream: 38 33% 97%;
-    --warm-bg: 38 33% 97%;
+    --gold: 36 24% 63%;
+    --gold-light: 40 37% 90%;
+    --teal-light: 40 37% 94%;
+    --teal-dark: 42 9% 22%;
+    --cream: 40 37% 94%;
+    --warm-bg: 40 37% 94%;
     --cross: 4 74% 53%;
 
     /* Warm glow tokens */
-    --glow-accent: 0 0 20px hsl(33 55% 44% / 0.35);
-    --glow-accent-strong: 0 0 30px hsl(33 55% 44% / 0.5);
-    --glow-green: 0 0 20px hsl(150 40% 38% / 0.3);
-    --glow-primary: 0 0 20px hsl(33 55% 44% / 0.3);
+    --glow-accent: 0 0 20px hsl(36 24% 63% / 0.35);
+    --glow-accent-strong: 0 0 30px hsl(36 24% 63% / 0.5);
+    --glow-green: 0 0 20px hsl(84 8% 53% / 0.3);
+    --glow-primary: 0 0 20px hsl(48 7% 13% / 0.25);
 
     /* Glass tokens */
-    --glass-bg: 40 45% 98% / 0.7;
-    --glass-border: 40 30% 90% / 0.5;
-    --glass-shadow: 0 8px 32px 0 hsl(28 30% 30% / 0.08);
+    --glass-bg: 40 60% 97% / 0.72;
+    --glass-border: 40 30% 88% / 0.55;
+    --glass-shadow: 0 8px 32px 0 hsl(42 15% 30% / 0.08);
 
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
   .dark {
-    --background: 26 12% 8%;
-    --foreground: 38 25% 95%;
-    --card: 26 12% 11%;
-    --card-foreground: 38 25% 95%;
-    --popover: 26 12% 11%;
-    --popover-foreground: 38 25% 95%;
-    --primary: 33 55% 52%;
-    --primary-foreground: 26 15% 10%;
-    --secondary: 33 40% 30%;
-    --secondary-foreground: 40 40% 98%;
-    --muted: 26 10% 16%;
-    --muted-foreground: 36 10% 62%;
-    --accent: 4 74% 55%;
-    --accent-foreground: 0 0% 100%;
+    --background: 42 9% 10%;
+    --foreground: 40 30% 93%;
+    --card: 42 9% 14%;
+    --card-foreground: 40 30% 93%;
+    --popover: 42 9% 14%;
+    --popover-foreground: 40 30% 93%;
+    --primary: 36 24% 63%;
+    --primary-foreground: 48 7% 13%;
+    --secondary: 42 9% 24%;
+    --secondary-foreground: 40 37% 94%;
+    --muted: 42 8% 18%;
+    --muted-foreground: 40 8% 62%;
+    --accent: 36 24% 58%;
+    --accent-foreground: 48 7% 13%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
-    --border: 28 10% 18%;
-    --input: 28 10% 18%;
-    --ring: 33 55% 52%;
+    --border: 40 6% 20%;
+    --input: 40 6% 20%;
+    --ring: 36 24% 58%;
 
-    --glass-bg: 26 12% 10% / 0.7;
-    --glass-border: 28 10% 24% / 0.4;
+    --glass-bg: 42 9% 12% / 0.7;
+    --glass-border: 40 6% 24% / 0.4;
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 }
@@ -126,11 +131,11 @@
     box-shadow: var(--glass-shadow);
   }
   .glass-card-strong {
-    background: hsl(40 45% 98% / 0.8);
+    background: hsl(40 60% 97% / 0.85);
     backdrop-filter: blur(24px) saturate(1.6);
     -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    border: 1px solid hsl(40 30% 88% / 0.5);
-    box-shadow: 0 12px 40px 0 hsl(28 30% 30% / 0.1);
+    border: 1px solid hsl(40 30% 86% / 0.55);
+    box-shadow: 0 12px 40px 0 hsl(42 15% 30% / 0.1);
   }
   .neon-glow {
     box-shadow: var(--glow-accent);
@@ -145,7 +150,7 @@
     box-shadow: var(--glow-primary);
   }
   .gradient-border {
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--gold) / 0.1));
-    border: 1px solid hsl(var(--primary) / 0.2);
+    background: linear-gradient(135deg, hsl(var(--accent) / 0.1), hsl(var(--sage) / 0.1));
+    border: 1px solid hsl(var(--accent) / 0.25);
   }
 }
