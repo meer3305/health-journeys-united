@@ -80,7 +80,7 @@ export function ProcedureForm() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        toast.info("Please sign in to submit your pre-procedure form");
+        toast({ title: "Sign in required", description: "Please sign in to submit your pre-procedure form." });
         navigate("/auth");
         return;
       }
