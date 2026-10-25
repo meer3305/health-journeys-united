@@ -337,14 +337,14 @@ const ProviderProfile = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.2 }}
                 className="rounded-2xl border border-accent/20 bg-card p-6 shadow-lg"
-                style={{ boxShadow: "0 0 20px rgba(34,211,238,0.08)" }}
+                style={{ boxShadow: "0 0 20px hsl(var(--primary) / 0.08)" }}
               >
                 <h3 className="font-serif text-lg font-bold">Get a Free Quote</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   Speak to our care team about treatment options at {provider.name}.
                 </p>
                 <div className="mt-5 space-y-3">
-                  <Button className="w-full gap-2 bg-primary hover:bg-primary/90 shadow-md transition-shadow hover:shadow-[0_0_16px_rgba(34,211,238,0.25)]">
+                  <Button className="w-full gap-2 bg-primary hover:bg-primary/90 shadow-md transition-shadow hover:shadow-[0_0_16px_hsl(var(--primary)/0.25)]">
                     <Phone className="h-4 w-4" /> Talk to Care Coordinator
                   </Button>
                   <Button variant="outline" className="w-full gap-2">

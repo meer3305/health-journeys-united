@@ -28,6 +28,7 @@ const MedicalTravelGuides = lazy(() => import("./pages/MedicalTravelGuides"));
 const GuideDetail = lazy(() => import("./pages/GuideDetail"));
 const TechStack = lazy(() => import("./pages/TechStack"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const ProcedureForm = lazy(() => import("./pages/ProcedureForm"));
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ function AnimatedRoutes() {
           <Route path="/guides" element={<MainLayout><MedicalTravelGuides /></MainLayout>} />
           <Route path="/guides/:slug" element={<MainLayout><GuideDetail /></MainLayout>} />
           <Route path="/tech-stack" element={<MainLayout><TechStack /></MainLayout>} />
+          <Route path="/procedure/new" element={<ProtectedRoute><MainLayout><ProcedureForm /></MainLayout></ProtectedRoute>} />
           <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
         </Routes>
       </Suspense>
