@@ -6,6 +6,7 @@ import { PatientStories } from "@/components/sections/PatientStories";
 import { PatientJourney } from "@/components/sections/PatientJourney";
 import { TrustBadges } from "@/components/sections/TrustBadges";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { HayatHomeSection } from "@/components/chatbot/HayatHomeSection";
 import { FindMyTreatmentModal } from "@/components/FindMyTreatmentModal";
 import { HealthConciergeWizard } from "@/components/HealthConciergeWizard";
 import { PartnerApplicationModal } from "@/components/PartnerApplicationModal";
@@ -57,7 +58,7 @@ function Glass3DCard({ children, className = "" }: { children: React.ReactNode; 
       >
         {hov && (
           <div className="pointer-events-none absolute inset-0 opacity-15"
-            style={{ background: `radial-gradient(circle at ${50 + rot.y * 4}% ${50 + rot.x * 4}%, rgba(34,211,238,0.4) 0%, transparent 50%)` }} />
+            style={{ background: `radial-gradient(circle at ${50 + rot.y * 4}% ${50 + rot.x * 4}%, hsl(var(--primary) / 0.5) 0%, transparent 50%)` }} />
         )}
         <div style={{ transform: "translateZ(8px)" }}>{children}</div>
       </motion.div>
@@ -138,7 +139,10 @@ const Index = () => {
               <motion.div whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }}>
                 <Button size="lg" className="gap-2 shadow-lg transition-all border border-white/20"
                   style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", color: "white" }}
-                  onClick={() => window.dispatchEvent(new CustomEvent("open-hayat"))}>
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("open-hayat"));
+                    document.getElementById("hayat")?.scrollIntoView({ behavior: "smooth" });
+                  }}>
                   <Sparkles className="h-4 w-4" /> AI Suggestions
                 </Button>
               </motion.div>
@@ -187,10 +191,13 @@ const Index = () => {
         </Container>
       </section>
 
+      {/* Meet Hayat — embedded AI companion chat */}
+      <HayatHomeSection />
+
       {/* Why Choose Us */}
       <WhyChooseUs />
 
-      {/* TrawellCare Card + BNPL — right after Why Choose Us */}
+      {/* TrawellCare Card — right after Why Choose Us */}
       <section className="py-20 relative overflow-hidden bg-muted/30">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
         <Container className="relative">
@@ -265,7 +272,7 @@ const Index = () => {
             <h2 className="font-serif text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">Are you a hospital or wellness provider?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/70">Join our network of verified healthcare providers and connect with thousands of international patients.</p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="mt-8 inline-block">
-              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" style={{ boxShadow: "0 0 25px rgba(34,211,238,0.4)" }} onClick={() => setPartnerOpen(true)}>
+              <Button size="lg" className="gap-2 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90" onClick={() => setPartnerOpen(true)}>
                 Apply to be a Partner <ArrowRight className="h-4 w-4" />
               </Button>
             </motion.div>

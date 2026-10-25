@@ -168,6 +168,9 @@ const TreatmentDetail = () => {
                       <Button variant="outline" className="mt-3 w-full" size="lg" asChild>
                         <Link to={user ? "/dashboard/bookings" : "/auth?mode=signup"}>{user ? "View My Bookings" : "Sign Up to Book"}</Link>
                       </Button>
+                      <Button variant="ghost" className="mt-2 w-full text-primary hover:bg-primary/10" size="lg" asChild>
+                        <Link to={user ? "/procedure/new" : "/auth?mode=signup"}>Start Pre-Procedure Form</Link>
+                      </Button>
                     </>
                   ) : (
                     <div className="mt-6 rounded-lg bg-primary/10 p-4 text-center">
