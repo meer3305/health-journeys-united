@@ -8,6 +8,13 @@
       "when": 1792591248092,
       "tag": "0000_hayat_chat_and_procedure_forms",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793039415480,
+      "tag": "0001_migration",
+      "breakpoints": true
     }
   ]
 }
