@@ -67,7 +67,7 @@ export function ProcedureForm() {
   const uploadDocs = async (userId: string): Promise<string[]> => {
     const names: string[] = [];
     for (const file of files) {
-      const path = `procedure-docs/${userId}/${Date.now()}-${file.name}`;
+      const path = `${userId}/procedure-docs/${Date.now()}-${file.name}`;
       const { error } = await supabase.storage.from("medical-records").upload(path, file, { upsert: false });
       if (error) throw new Error(`Could not upload ${file.name}`);
       names.push(file.name);
