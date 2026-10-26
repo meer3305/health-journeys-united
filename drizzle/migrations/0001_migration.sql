@@ -1,0 +1,1 @@
+delete from public.procedure_submissions where reference = 'TC-U5ERBJ' returning reference;
