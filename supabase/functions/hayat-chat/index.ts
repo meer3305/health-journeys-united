@@ -35,7 +35,7 @@ ${JSON.stringify((catalog as any).wellness)}
 
 DESTINATION FACTS: Turkey — up to 70% savings, strong in hair, dental, orthopaedics; Thailand — up to 65%, cosmetic & wellness; India — up to 80%, cardiac & ortho; UAE — up to 40%, premium; Greece — fertility; Germany — up to 30%, oncology & cardiac.
 
-Keep replies under 180 words unless the user asks for detail. When you recommend treatments, format as a short list with name, country, price and duration.`;
+Keep replies under 150 words unless the user asks for detail. When you recommend treatments, format as a short list with name, country, price and duration.`;
 
 const TOOLS = [
   {
@@ -85,24 +85,91 @@ const TOOLS = [
 
 const ALLOWED_STATUSES = new Set(['pending', 'confirmed', 'completed', 'cancelled']);
 
+const STATUS_LABELS: Record<string, string> = {
+  create_booking: 'Scheduling your appointment…',
+  list_bookings: 'Checking your bookings…',
+  update_booking_status: 'Updating your booking…',
+};
+
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 }
 
-async function callGateway(messages: unknown[]) {
+interface GatewayStreamResult {
+  content: string;
+  toolCalls: Array<{ id: string; type: 'function'; function: { name: string; arguments: string } }>;
+}
+
+/**
+ * Streams one gateway chat-completions call. Content deltas are pushed to
+ * the caller as they arrive; tool-call fragments are accumulated per index.
+ */
+async function callGatewayStream(
+  convo: unknown[],
+  onDelta: (cumulative: string) => void,
+): Promise<GatewayStreamResult> {
   const res = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Lovable-API-Key': LOVABLE_API_KEY },
-    body: JSON.stringify({ model: MODEL, messages, tools: TOOLS, tool_choice: 'auto', max_tokens: 1200 }),
-    signal: AbortSignal.timeout(60_000),
+    body: JSON.stringify({ model: MODEL, messages: convo, tools: TOOLS, tool_choice: 'auto', max_tokens: 900, stream: true }),
+    signal: AbortSignal.timeout(75_000),
   });
-  if (!res.ok) {
-    const t = await res.text();
-    const msg = res.status === 429 ? 'AI rate limit reached. Try again in a moment.' : res.status === 402 ? 'AI credits exhausted. Add credits in workspace settings.' : `AI error (${res.status})`;
+  if (!res.ok || !res.body) {
+    const t = await res.text().catch(() => '');
+    const msg =
+      res.status === 429
+        ? 'AI rate limit reached. Try again in a moment.'
+        : res.status === 402
+        ? 'AI credits exhausted. Add credits in workspace settings.'
+        : `AI error (${res.status})`;
     console.error('hayat gateway error', res.status, t);
     throw Object.assign(new Error(msg), { status: res.status });
   }
-  return res.json();
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+  let content = '';
+  const toolCalls: GatewayStreamResult['toolCalls'] = [];
+
+  outer: while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    let nl: number;
+    while ((nl = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, nl).trim();
+      buf = buf.slice(nl + 1);
+      if (!line.startsWith('data:')) continue;
+      const payload = line.slice(5).trim();
+      if (!payload) continue;
+      if (payload === '[DONE]') break outer;
+      let chunk: any;
+      try {
+        chunk = JSON.parse(payload);
+      } catch {
+        continue;
+      }
+      const delta = chunk.choices?.[0]?.delta;
+      if (delta?.content) {
+        content += delta.content;
+        onDelta(content);
+      }
+      if (Array.isArray(delta?.tool_calls)) {
+        for (const tc of delta.tool_calls) {
+          const i = tc.index ?? 0;
+          if (!toolCalls[i]) {
+            toolCalls[i] = { id: tc.id ?? `call_${i}`, type: 'function' as const, function: { name: tc.function?.name ?? '', arguments: '' } };
+          }
+          if (tc.id) toolCalls[i].id = tc.id;
+          if (tc.function?.name) toolCalls[i].function.name += tc.function.name;
+          if (tc.function?.arguments) toolCalls[i].function.arguments += tc.function.arguments;
+        }
+      }
+    }
+  }
+
+  return { content, toolCalls: toolCalls.filter(Boolean) };
 }
 
 Deno.serve(async (req) => {
@@ -141,14 +208,14 @@ Deno.serve(async (req) => {
       thread = created;
     }
 
-    // Load history (last 40 messages).
+    // Load recent history.
     const { data: history } = await admin
       .from('chat_messages')
       .select('role, content')
       .eq('thread_id', thread.id)
       .order('created_at', { ascending: true })
       .limit(200);
-    const priorMessages = (history ?? []).slice(-40);
+    const priorMessages = (history ?? []).slice(-30);
 
     // Save the user message.
     if (message) {
@@ -159,7 +226,12 @@ Deno.serve(async (req) => {
     // User context: profile + bookings.
     const [{ data: profile }, { data: bookings }] = await Promise.all([
       admin.from('profiles').select('full_name, country, conditions, allergies, medications, treatment_interests').eq('id', uid).maybeSingle(),
-      admin.from('bookings').select('id, treatment_name, provider, country, price, status, preferred_date, created_at').eq('user_id', uid).order('created_at', { ascending: false }).limit(20),
+      admin
+        .from('bookings')
+        .select('id, treatment_name, provider, country, price, status, preferred_date, created_at')
+        .eq('user_id', uid)
+        .order('created_at', { ascending: false })
+        .limit(20),
     ]);
 
     const contextMsg = {
@@ -167,7 +239,6 @@ Deno.serve(async (req) => {
       content: `CONTEXT — Signed-in user: ${profile?.full_name || user.email || 'Guest'} (location: ${profile?.country || 'unknown'}). Health profile: conditions=${profile?.conditions || 'none listed'}, allergies=${profile?.allergies || 'none listed'}, medications=${profile?.medications || 'none listed'}.\nCURRENT BOOKINGS (JSON): ${JSON.stringify(bookings ?? [])}`,
     };
 
-    // Conversation for the model.
     const convo: any[] = [
       { role: 'system', content: SYSTEM_PROMPT },
       contextMsg,
@@ -175,75 +246,132 @@ Deno.serve(async (req) => {
     ];
     if (message) convo.push({ role: 'user', content: message });
 
-    // Agentic tool loop (bounded by hops and a wall-clock deadline).
-    let reply = '';
-    let titleUpdated = false;
-    const deadline = Date.now() + 100_000;
-    for (let hop = 0; hop < 5; hop++) {
-      if (Date.now() > deadline) { reply = reply || "I've taken care of your request — give me a moment and ask me anything else, or check your bookings in the dashboard."; break; }
-      const aiJson = await callGateway(convo);
-      const choice = aiJson.choices?.[0]?.message;
-      reply = choice?.content ?? '';
-      const toolCalls = choice?.tool_calls ?? [];
+    // SSE response stream.
+    const enc = new TextEncoder();
+    let clientGone = false;
+    const threadIdOut = thread.id;
 
-      if (!toolCalls.length) break;
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        const send = (obj: unknown) => {
+          if (clientGone) return;
+          try {
+            controller.enqueue(enc.encode(`data: ${JSON.stringify(obj)}\n\n`));
+          } catch {
+            clientGone = true;
+          }
+        };
 
-      convo.push(choice);
-      for (const call of toolCalls) {
-        let result: unknown;
+        send({ type: 'meta', threadId: threadIdOut });
+
+        let reply = '';
+        let titleUpdated = false;
         try {
-          const args = typeof call.function?.arguments === 'string' ? JSON.parse(call.function.arguments) : (call.function?.arguments ?? {});
-          const name = call.function?.name;
-          if (name === 'create_booking') {
-            const insert: Record<string, unknown> = { user_id: uid, treatment_name: String(args.treatment_name).slice(0, 200), status: 'pending' };
-            if (args.provider) insert.provider = String(args.provider).slice(0, 200);
-            if (args.country) insert.country = String(args.country).slice(0, 80);
-            if (typeof args.price === 'number' && isFinite(args.price)) insert.price = args.price;
-            if (typeof args.preferred_date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(args.preferred_date)) insert.preferred_date = args.preferred_date;
-            if (args.notes) insert.notes = String(args.notes).slice(0, 1000);
-            const { data, error } = await admin.from('bookings').insert(insert).select('id, treatment_name, provider, country, price, preferred_date, status').single();
-            result = error ? { error: error.message } : { booked: data };
-          } else if (name === 'list_bookings') {
-            const { data, error } = await admin.from('bookings').select('id, treatment_name, provider, country, price, status, preferred_date').eq('user_id', uid).order('created_at', { ascending: false });
-            result = error ? { error: error.message } : { bookings: data };
-          } else if (name === 'update_booking_status') {
-            const status = String(args.status ?? '');
-            if (!ALLOWED_STATUSES.has(status)) result = { error: 'Invalid status' };
-            else {
-              const { data, error } = await admin
-                .from('bookings')
-                .update({ status })
-                .eq('id', String(args.booking_id))
-                .eq('user_id', uid)
-                .select('id, treatment_name, status')
-                .maybeSingle();
-              result = error ? { error: error.message } : data ? { updated: data } : { error: 'Booking not found' };
+          const deadline = Date.now() + 90_000;
+          for (let hop = 0; hop < 4; hop++) {
+            if (Date.now() > deadline) {
+              reply = reply || "I've taken care of your request — give me a moment and ask me anything else, or check your bookings in the dashboard.";
+              break;
             }
-          } else if (name === 'rename_thread') {
-            const title = String(args.title ?? '').slice(0, 60);
-            await admin.from('chat_threads').update({ title }).eq('id', thread.id).eq('user_id', uid);
-            titleUpdated = true;
-            result = { ok: true };
-          } else {
-            result = { error: 'Unknown tool' };
+            const { content, toolCalls } = await callGatewayStream(convo, (cum) => send({ type: 'delta', text: cum }));
+            reply = content;
+
+            if (!toolCalls.length) break;
+
+            // Model wants tools: reset the visible partial text so the final
+            // answer starts clean after the tool hop.
+            if (content) send({ type: 'reset' });
+            convo.push({ role: 'assistant', content: content || '', tool_calls: toolCalls });
+
+            for (const call of toolCalls) {
+              const name = call.function?.name;
+              const label = STATUS_LABELS[name];
+              if (label) send({ type: 'status', label });
+
+              let result: unknown;
+              try {
+                const args = typeof call.function?.arguments === 'string' ? JSON.parse(call.function.arguments || '{}') : (call.function?.arguments ?? {});
+                if (name === 'create_booking') {
+                  const insert: Record<string, unknown> = { user_id: uid, treatment_name: String(args.treatment_name).slice(0, 200), status: 'pending' };
+                  if (args.provider) insert.provider = String(args.provider).slice(0, 200);
+                  if (args.country) insert.country = String(args.country).slice(0, 80);
+                  if (typeof args.price === 'number' && isFinite(args.price)) insert.price = args.price;
+                  if (typeof args.preferred_date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(args.preferred_date)) insert.preferred_date = args.preferred_date;
+                  if (args.notes) insert.notes = String(args.notes).slice(0, 1000);
+                  const { data, error } = await admin.from('bookings').insert(insert).select('id, treatment_name, provider, country, price, preferred_date, status').single();
+                  result = error ? { error: error.message } : { booked: data };
+                } else if (name === 'list_bookings') {
+                  const { data, error } = await admin
+                    .from('bookings')
+                    .select('id, treatment_name, provider, country, price, status, preferred_date')
+                    .eq('user_id', uid)
+                    .order('created_at', { ascending: false });
+                  result = error ? { error: error.message } : { bookings: data };
+                } else if (name === 'update_booking_status') {
+                  const status = String(args.status ?? '');
+                  if (!ALLOWED_STATUSES.has(status)) result = { error: 'Invalid status' };
+                  else {
+                    const { data, error } = await admin
+                      .from('bookings')
+                      .update({ status })
+                      .eq('id', String(args.booking_id))
+                      .eq('user_id', uid)
+                      .select('id, treatment_name, status')
+                      .maybeSingle();
+                    result = error ? { error: error.message } : data ? { updated: data } : { error: 'Booking not found' };
+                  }
+                } else if (name === 'rename_thread') {
+                  const title = String(args.title ?? '').slice(0, 60);
+                  await admin.from('chat_threads').update({ title }).eq('id', thread!.id).eq('user_id', uid);
+                  titleUpdated = true;
+                  result = { ok: true };
+                } else {
+                  result = { error: 'Unknown tool' };
+                }
+              } catch (e) {
+                result = { error: (e as Error).message };
+              }
+              convo.push({ role: 'tool', tool_call_id: call.id, content: JSON.stringify(result) });
+            }
           }
         } catch (e) {
-          result = { error: (e as Error).message };
+          const err = e as Error & { status?: number };
+          console.error('hayat-chat stream error', err);
+          send({ type: 'error', message: err.message || 'Unexpected error' });
         }
-        convo.push({ role: 'tool', tool_call_id: call.id, content: JSON.stringify(result) });
-      }
-    }
 
-    // Persist the assistant reply.
-    if (reply) {
-      const { error: aErr } = await admin.from('chat_messages').insert({ thread_id: thread.id, user_id: uid, role: 'assistant', content: reply });
-      if (aErr) throw aErr;
-      await admin.from('chat_threads').update({ updated_at: new Date().toISOString() }).eq('id', thread.id);
-    }
+        // Persist the assistant reply.
+        try {
+          if (reply) {
+            const { error: aErr } = await admin.from('chat_messages').insert({ thread_id: threadIdOut, user_id: uid, role: 'assistant', content: reply });
+            if (aErr) throw aErr;
+            await admin.from('chat_threads').update({ updated_at: new Date().toISOString() }).eq('id', threadIdOut);
+          }
+        } catch (e) {
+          console.error('hayat-chat persist error', e);
+        }
 
-    const { data: refreshed } = await admin.from('chat_threads').select('title, updated_at').eq('id', thread.id).maybeSingle();
+        const { data: refreshed } = await admin.from('chat_threads').select('title, updated_at').eq('id', threadIdOut).maybeSingle();
+        send({ type: 'done', reply, title: titleUpdated ? refreshed?.title : undefined, updatedAt: refreshed?.updated_at });
+        try {
+          controller.close();
+        } catch {
+          // client already disconnected
+        }
+      },
+      cancel() {
+        clientGone = true;
+      },
+    });
 
-    return json({ threadId: thread.id, reply, title: titleUpdated ? refreshed?.title : undefined, updatedAt: refreshed?.updated_at });
+    return new Response(stream, {
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        'X-Accel-Buffering': 'no',
+      },
+    });
   } catch (e) {
     const err = e as Error & { status?: number };
     console.error('hayat-chat error', err);
